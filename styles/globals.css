@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,30 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.verse-play-red {
+  animation: verse-play-red 1.2s ease-out infinite;
+}
+
+@keyframes verse-play-red {
+  from {
+    box-shadow: 0px 0px 0px 0px theme('colors.gray.300');
+  }
+  to {
+    box-shadow: 0px 0px 0px 10px rgba(255, 255, 255, 0);
+  }
+}
+
+.verse-play-green {
+  animation: verse-play-green 1.2s ease-out infinite;
+}
+
+@keyframes verse-play-green {
+  from {
+    box-shadow: 0px 0px 0px 0px theme('colors.gray.300');
+  }
+  to {
+    box-shadow: 0px 0px 0px 10px rgba(255, 255, 255, 0);
+  }
 }
