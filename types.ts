@@ -98,3 +98,19 @@ export interface AppData {
     starredSurah: number[];
   };
 }
+
+export interface PrayTimes {
+  fajr: string;
+  sunrise: string;
+  dhuhr: string;
+  asr: string;
+  maghrib: string;
+  isha: string;
+}
+
+export interface PrayTimeRegion {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+}

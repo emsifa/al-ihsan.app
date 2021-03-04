@@ -2,12 +2,14 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { config, dom } from "@fortawesome/fontawesome-svg-core";
 import { useMemo, useState } from "react";
-import { AppData, BookmarkedVerse, Verse } from "../types";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { AppData, BookmarkedVerse } from "../types";
 import { getData, persistData } from "../services/data";
 import AppContext from "../context/AppContext";
 import "../styles/globals.css";
 
 config.autoAddCss = false;
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [data, setData] = useState<AppData>(getData());
@@ -51,23 +53,28 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [data]);
 
   return (
-    <AppContext.Provider
-      value={{
-        data,
-        toggleBookmarkVerse,
-        toggleStarSurah,
-        bookmarkedVerseNumber,
-      }}
-    >
-      <Head>
-        <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Mirza&display=swap" rel="stylesheet"/>
-        <style>{dom.css()}</style>
-      </Head>
-      <div>
-        <Component {...pageProps} />
-      </div>
-    </AppContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <AppContext.Provider
+        value={{
+          data,
+          toggleBookmarkVerse,
+          toggleStarSurah,
+          bookmarkedVerseNumber,
+        }}
+      >
+        <Head>
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Mirza&display=swap"
+            rel="stylesheet"
+          />
+          <style>{dom.css()}</style>
+        </Head>
+        <div>
+          <Component {...pageProps} />
+        </div>
+      </AppContext.Provider>
+    </QueryClientProvider>
   );
 }
 

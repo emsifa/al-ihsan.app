@@ -14,7 +14,7 @@ export default function Home() {
       </div>
       <div className="w-full grid grid-cols-2 grid-flow-row-dense md:grid-cols-3 gap-4">
         <div className=""><SquareMenu href="/al-quran" icon="/icon-quran.svg" label="Al-Qur'an"/></div>
-        <div className="col-span-2"><SquareMenu icon="/icon-salat-clock.svg" label="Waktu Sholat"/></div>
+        <div className="col-span-2"><SquareMenu href="/prayer-times" icon="/icon-salat-clock.svg" label="Waktu Salat"/></div>
         <div className=""><SquareMenu icon="/icon-islamic-calendar.svg" label="Kalender Islam"/></div>
         <div className=""><SquareMenu icon="/icon-islamic-calendar.svg" label="Kumpulan Doa"/></div>
         <div className=""><SquareMenu icon="/icon-islamic-calendar.svg" label="Kalkulator Zakat"/></div>
