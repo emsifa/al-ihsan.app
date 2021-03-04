@@ -5,7 +5,7 @@ const DATA_KEY = "app_data";
 const defaultData: AppData = {
   quran: {
     bookmarkedVerse: null,
-    starredSurah: [],
+    starredSurah: [1, 36],
   },
 };
 
