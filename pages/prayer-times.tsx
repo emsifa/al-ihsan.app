@@ -14,6 +14,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import Clock from "../components/Clock";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import Select from "../components/Select";
 import { getPrayTimes } from "../helpers/pray-time";
@@ -110,10 +111,7 @@ const PrayTimesPage: NextPage = () => {
         </div>
         {prayTimes && (
           <div className="rounded bg-white mt-3 select-none overflow-hidden">
-            <PrayTime
-              label="Subuh"
-              time={`${prayTimes.fajr} - ${prayTimes.sunrise}`}
-            />
+            <PrayTime label="Subuh" time={`${prayTimes.fajr}`} />
             <PrayTime label="Zuhur" time={`${prayTimes.dhuhr}`} />
             <PrayTime label="Ashar" time={`${prayTimes.asr}`} />
             <PrayTime label="Maghrib" time={`${prayTimes.maghrib}`} />
@@ -129,9 +127,14 @@ export default PrayTimesPage;
 
 const PrayTime: FC<{ label: string; time: string }> = ({ label, time }) => (
   <div className="flex px-3 py-2 border-b hover:bg-gray-100">
-    <div className="w-auto text-primary">{label}</div>
-    <div className="flex-grow text-right font-semibold text-oxford-blue">
-      {time}
+    <div className="flex-grow text-primary py-1">{label}</div>
+    <div className="w-auto font-semibold text-oxford-blue">
+      <div className="flex flex-wrap content-center">
+        <div className="py-1">
+          <span className="inline-block">{time}</span>
+        </div>
+        <Clock className="ml-2" time={time}/>
+      </div>
     </div>
   </div>
 );

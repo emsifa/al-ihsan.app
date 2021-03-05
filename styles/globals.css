@@ -23,6 +23,19 @@ a {
   animation: verse-play-red 1.2s ease-out infinite;
 }
 
+.stroke-primary {
+  stroke: theme('colors.primary.DEFAULT');
+}
+
+.stroke-secondary {
+  stroke: theme('colors.secondary.DEFAULT');
+}
+
+.stroke-oxford-blue {
+  stroke: theme('colors.oxford-blue.DEFAULT');
+}
+
+
 @keyframes verse-play-red {
   from {
     box-shadow: 0px 0px 0px 0px theme('colors.gray.300');
