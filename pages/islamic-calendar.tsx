@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import { getCalendarDates } from "../helpers/calendar";
-import { HijriDate, CalendarEvent, DateConversion } from "../types";
+import { CalendarEvent, DateConversion } from "../types";
 import { classNames } from "../helpers/utils";
 import { useQuery } from "react-query";
 import { getCalendarEvents } from "../services/calendar-events";
@@ -267,7 +267,7 @@ const IslamicCalendarPage: NextPage = () => {
           <div className="mt-3">
             <h4 className="mb-2 text-gray-500 font-semibold">Hari Spesial</h4>
             {displayEvents.map((data) => (
-              <div className="rounded bg-white w-full px-3 py-2 mb-3 cursor-pointer">
+              <div className="rounded bg-white w-full px-3 py-2 mb-3 select-none">
                 <div className="flex">
                   <div className="flex-grow">
                     <p className="text-sm">
