@@ -1,0 +1,50 @@
+[
+  {
+    "day": 1,
+    "month": 1,
+    "name": "Tahun Baru Hijriah",
+    "url": "https://id.wikipedia.org/wiki/Tahun_Baru_Hijriyah"
+  },
+  {
+    "day": 10,
+    "month": 1,
+    "name": "Hari Asyura",
+    "url": "https://id.wikipedia.org/wiki/Hari_Asyura"
+  },
+  {
+    "day": 12,
+    "month": 3,
+    "name": "Maulid Nabi Muhammad SAW",
+    "url": "https://id.wikipedia.org/wiki/Maulid_Nabi_Muhammad"
+  },
+  {
+    "day": 27,
+    "month": 7,
+    "name": "Isra' Mi'raj",
+    "url": "https://id.wikipedia.org/wiki/Isra_Mikraj"
+  },
+  {
+    "day": 1,
+    "month": 9,
+    "name": "Bulan Puasa",
+    "url": "https://id.wikipedia.org/wiki/Puasa"
+  },
+  {
+    "day": 17,
+    "month": 9,
+    "name": "Nuzulul Qur'an",
+    "url": "https://id.wikipedia.org/wiki/Nuzululquran"
+  },
+  {
+    "day": 1,
+    "month": 10,
+    "name": "Idul Fitri",
+    "url": "https://id.wikipedia.org/wiki/Idulfitri"
+  },
+  {
+    "day": 10,
+    "month": 12,
+    "name": "Idul Adha",
+    "url": "https://id.wikipedia.org/wiki/Iduladha"
+  }
+]

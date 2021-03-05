@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   purge: [
     "./pages/**/*.tsx",
@@ -25,6 +27,18 @@ module.exports = {
         "floral-white": {
           DEFAULT: "#fffdf7",
         },
+        "muharram": colors.amber,
+        "shafar": colors.blue,
+        "rabiul-awal": colors.blueGray,
+        "rabiul-akhir": colors.indigo,
+        "jumadil-awal": colors.emerald,
+        "jumadil-akhir": colors.fuchsia,
+        "rajab": colors.cyan,
+        "syaban": colors.violet,
+        "ramadhan": colors.teal,
+        "syawal": colors.lime,
+        "zulqaidah": colors.orange,
+        "zulhijjah": colors.pink,
       },
     },
   },

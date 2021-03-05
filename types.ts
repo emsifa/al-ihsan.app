@@ -114,3 +114,25 @@ export interface PrayTimeRegion {
   lat: number;
   lng: number;
 }
+
+export interface HijriDate {
+  day: number;
+  month: number;
+  year: number;
+  monthName: string;
+  monthNameShort: string;
+}
+
+export interface DateConversion {
+  hijri: HijriDate;
+  date: Date;
+  dateStr: string;
+  isOtherMonth: boolean;
+}
+
+export interface CalendarEvent {
+  day: number;
+  month: number;
+  name: string;
+  url: string;
+}
