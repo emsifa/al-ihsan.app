@@ -2,6 +2,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faChevronDown,
+  faInfoCircle,
   faMapMarkerAlt,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
@@ -16,12 +17,14 @@ import { FC, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Clock from "../components/Clock";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
+import Modal from "../components/Modal";
 import Select from "../components/Select";
 import { getPrayTimes } from "../helpers/pray-time";
 import { getRegions } from "../services/prayer-times";
 import { PrayTimes } from "../types";
 
 const PrayTimesPage: NextPage = () => {
+  const [showInfo, setShowInfo] = useState<boolean>(false);
   const [date, setDate] = useState<Date>(new Date());
   const [prayTimes, setPrayTimes] = useState<PrayTimes | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
@@ -61,10 +64,56 @@ const PrayTimesPage: NextPage = () => {
           </span>
         </Link>
       }
+      rightButton={
+        <span onClick={() => setShowInfo(!showInfo)}>
+          <FontAwesomeIcon icon={faInfoCircle} className="cursor-pointer" />
+        </span>
+      }
     >
       <Head>
         <title>Al-Ihsan Apps &mdash; Waktu Salat</title>
       </Head>
+      <Modal shown={showInfo} size="sm">
+        <Modal.Header title="KETERANGAN" onClose={() => setShowInfo(false)}/>
+        <Modal.Body>
+          <p>
+            Data waktu salat dihitung menggunakan pustaka <em>javascript</em>{" "}
+            terbuka
+            {" "}
+            <a
+              className="text-primary"
+              href="https://github.com/batoulapps/adhan-js"
+              target="_blank"
+              rel="noreferrer"
+            >
+              adhan.js
+            </a>{" "}
+            dengan parameter sebagai berikut:
+          </p>
+          <table className="border w-full text-sm my-3 rounded">
+            <tr>
+              <td className="border bg-gray-100 px-2 py-1 w-32">Madhab</td>
+              <td className="border px-2 py-1">Shafi</td>
+            </tr>
+            <tr>
+              <td className="border bg-gray-100 px-2 py-1 w-32">Fajr Angle</td>
+              <td className="border px-2 py-1">20&#186;</td>
+            </tr>
+            <tr>
+              <td className="border bg-gray-100 px-2 py-1 w-32">Isha Angle</td>
+              <td className="border px-2 py-1">18&#186;</td>
+            </tr>
+            <tr>
+              <td className="border bg-gray-100 px-2 py-1 w-32">Adjustment</td>
+              <td className="border px-2 py-1">+2 minutes</td>
+            </tr>
+          </table>
+          <p>
+            Parameter diatas digunakan karena hasilnya paling mendekati dengan
+            waktu salat di website-website lain.
+          </p>
+        </Modal.Body>
+      </Modal>
       <div className="mb-5 w-full mt-3">
         <Select
           className={isLoadingRegions && "text-gray-400"}
@@ -133,7 +182,7 @@ const PrayTime: FC<{ label: string; time: string }> = ({ label, time }) => (
         <div className="py-1">
           <span className="inline-block">{time}</span>
         </div>
-        <Clock className="ml-2" time={time}/>
+        <Clock className="ml-2" time={time} />
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { PrayTimes } from "../types";
 
 export function getPrayTimes(lat: number, lng: number, date: Date): PrayTimes {
   const coordinates = new adhan.Coordinates(lat, lng);
-  const params = adhan.CalculationMethod.Singapore();
+  const params = adhan.CalculationMethod.MuslimWorldLeague();
   params.madhab = adhan.Madhab.Shafi;
   params.fajrAngle = 20;
   params.ishaAngle = 18;
