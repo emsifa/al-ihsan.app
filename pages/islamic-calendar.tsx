@@ -19,6 +19,7 @@ import { getCalendarEvents } from "../services/calendar-events";
 import { isFriday, isSunday } from "date-fns";
 import Modal from "../components/Modal";
 import Code from "../components/Code";
+import ExternalLink from "../components/ExternalLink";
 
 type MonthYear = {
   month: number;
@@ -32,9 +33,7 @@ const IslamicCalendarPage: NextPage = () => {
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
   });
-  const {
-    data: events,
-  } = useQuery("events", getCalendarEvents);
+  const { data: events } = useQuery("events", getCalendarEvents);
 
   const [dates, setDates] = useState<DateConversion[]>(
     getCalendarDates(new Date())
@@ -136,7 +135,7 @@ const IslamicCalendarPage: NextPage = () => {
         <title>Al-Ihsan Apps &mdash; Kalender Islam</title>
       </Head>
 
-      <ModalInfo shown={showInfo} onClose={() => setShowInfo(false)}/>
+      <ModalInfo shown={showInfo} onClose={() => setShowInfo(false)} />
 
       <div className="mb-5 w-full mt-3">
         <div className="flex rounded overflow-hidden mt-3 select-none">
@@ -323,21 +322,19 @@ const IslamicCalendarPage: NextPage = () => {
 
 export default IslamicCalendarPage;
 
-const ModalInfo: FC<{ shown: boolean, onClose: () => void }> = ({ shown, onClose }) => (
+const ModalInfo: FC<{ shown: boolean; onClose: () => void }> = ({
+  shown,
+  onClose,
+}) => (
   <Modal shown={shown} size="sm">
     <Modal.Header title="Kalender Islam" onClose={onClose} />
     <Modal.Body>
       <p>
-        Data penanggalan hijriah diambil menggunakan fungsi bawaan <em>javascript</em>
-        {" "}
-        <a
-          className="text-primary"
-          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat"
-          target="_blank"
-          rel="noreferrer"
-        >
+        Data penanggalan hijriah diambil menggunakan fungsi bawaan{" "}
+        <em>javascript</em>{" "}
+        <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat">
           <Code>Intl.DateTimeFormat</Code>
-        </a>{" "}
+        </ExternalLink>{" "}
         dengan format <em>locale</em> <Code>id-TN-u-ca-islamic-umalqura</Code>.
       </p>
     </Modal.Body>
