@@ -64,10 +64,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       >
         <Head>
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Mirza&display=swap"
-            rel="stylesheet"
-          />
           <style>{dom.css()}</style>
         </Head>
         <div>

@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        arab: ['Mirza', 'cursive', 'serif'],
+        arab: ['noorehira', 'cursive', 'serif'],
       },
       colors: {
         "primary": {

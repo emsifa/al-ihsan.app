@@ -123,7 +123,7 @@ const VerseCard: FC<VerseCardProps> = ({
         <FontAwesomeIcon icon={faBookmark} />
       </div>
 
-      <p className="text-oxford-blue font-arab text-2xl lg:text-3xl select-text">{arab}</p>
+      <p className="text-oxford-blue font-arab text-2xl select-text" style={{lineHeight:"2.5rem"}}>{arab}</p>
       <p className="text-primary mt-3 text-xs lg:text-sm text-left">{latin}</p>
       <p className="text-oxford-blue text-xs text-left pt-3 mt-3 border-t opacity-75">
         {translation}
