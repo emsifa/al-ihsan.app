@@ -16,6 +16,7 @@ import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Clock from "../components/Clock";
+import ExternalLink from "../components/ExternalLink";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import Modal from "../components/Modal";
 import Select from "../components/Select";
@@ -73,7 +74,7 @@ const PrayTimesPage: NextPage = () => {
         <title>Al-Ihsan Apps &mdash; Waktu Salat</title>
       </Head>
 
-      <ModalInfo shown={showInfo} onClose={() => setShowInfo(false)}/>
+      <ModalInfo shown={showInfo} onClose={() => setShowInfo(false)} />
 
       <div className="mb-5 w-full mt-3">
         <Select
@@ -135,21 +136,19 @@ const PrayTimesPage: NextPage = () => {
 
 export default PrayTimesPage;
 
-const ModalInfo: FC<{ shown: boolean, onClose: () => void }> = ({ shown, onClose }) => (
+const ModalInfo: FC<{ shown: boolean; onClose: () => void }> = ({
+  shown,
+  onClose,
+}) => (
   <Modal shown={shown} size="sm">
     <Modal.Header title="Waktu Salat" onClose={onClose} />
     <Modal.Body>
       <p>
         Data waktu salat dihitung menggunakan pustaka <em>javascript</em>{" "}
         terbuka{" "}
-        <a
-          className="text-primary"
-          href="https://github.com/batoulapps/adhan-js"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <ExternalLink href="https://github.com/batoulapps/adhan-js">
           adhan.js
-        </a>{" "}
+        </ExternalLink>{" "}
         dengan parameter sebagai berikut:
       </p>
       <table className="border w-full text-sm my-3 rounded">
