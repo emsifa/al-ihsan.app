@@ -1,5 +1,6 @@
 import {
   faArrowLeft,
+  faInfoCircle,
   faSearch,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Input from "../../components/Input";
 import LayoutWithNavbar from "../../components/LayoutWithNavbar";
 import SurahCard from "../../components/SurahCard";
@@ -16,12 +17,17 @@ import useAppContext from "../../hooks/useAppData";
 import { getListSurah } from "../../services/al-quran";
 import { Surah } from "../../types";
 import { classNames } from "../../helpers/utils";
+import Modal from "../../components/Modal";
+import ExternalLink from "../../components/ExternalLink";
+import Code from "../../components/Code";
+import { format } from "date-fns";
 
 const BookmarkLinkCard = dynamic(
   () => import("../../components/BookmarkLinkCard")
 );
 
 interface AlQuranPageProps {
+  renderedAt: number;
   listSurah: Surah[];
 }
 
@@ -29,7 +35,8 @@ function highlight(text: string, regex: RegExp | null): string {
   return regex ? text.replace(regex, "<u class='text-primary'>$&</u>") : text;
 }
 
-const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah }) => {
+const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
+  const [showInfo, setShowInfo] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>("");
   const [searchRegex, setSearchRegex] = useState<RegExp | null>(null);
   const [isFilterStarred, setIsFilterStarred] = useState<boolean>(false);
@@ -80,10 +87,22 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah }) => {
           </span>
         </Link>
       }
+      rightButton={
+        <span onClick={() => setShowInfo(!showInfo)}>
+          <FontAwesomeIcon icon={faInfoCircle} className="cursor-pointer" />
+        </span>
+      }
     >
       <Head>
         <title>Al-Ihsan Apps &mdash; Al-Qur'an</title>
       </Head>
+
+      <ModalInfo
+        shown={showInfo}
+        renderedAt={renderedAt}
+        onClose={() => setShowInfo(false)}
+      />
+
       <div className="mb-5 w-full">
         {data.quran.bookmarkedVerse && (
           <BookmarkLinkCard bookmarkedVerse={data.quran.bookmarkedVerse} />
@@ -148,6 +167,36 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah }) => {
 
 export default AlQuranPage;
 
+const ModalInfo: FC<{
+  shown: boolean;
+  renderedAt: number;
+  onClose: () => void;
+}> = ({ shown, renderedAt, onClose }) => (
+  <Modal shown={shown} size="sm">
+    <Modal.Header title="Al-Qur'an" onClose={onClose} />
+    <Modal.Body>
+      <p>
+        Data Al-Qur'an diambil melalui{" "}
+        <ExternalLink href="https://en.wikipedia.org/wiki/Representational_state_transfer">
+          <em>REST API</em>
+        </ExternalLink>{" "}
+        dari{" "}
+        <ExternalLink href="https://github.com/sutanlab/quran-api">
+          Sutanlab Qur'an API
+        </ExternalLink>{" "}
+        menggunakan endpoint{" "}
+        <ExternalLink href="https://api.quran.sutanlab.id/surah">
+          <Code>https://api.quran.sutanlab.id/surah</Code>
+        </ExternalLink>
+      </p>
+      <p className="text-sm mt-3 pt-3 border-t mb-1">
+        Data pada halaman ini diambil pada:
+      </p>
+      <Code><small>{new Date(renderedAt).toString()}</small></Code>
+    </Modal.Body>
+  </Modal>
+);
+
 export const getStaticProps: GetStaticProps<AlQuranPageProps> = async (
   context
 ) => {
@@ -155,6 +204,7 @@ export const getStaticProps: GetStaticProps<AlQuranPageProps> = async (
   return {
     props: {
       listSurah,
+      renderedAt: new Date().getTime(),
     },
   };
 };

@@ -65,7 +65,7 @@ const Modal: FC<ModalProps> & { Body: FC, Header: FC<ModalHeaderProps> } = ({
                   <div
                     className={classNames([
                       "rounded overflow-hidden",
-                      size === "sm" && "w-11/12 lg:w-3/12",
+                      size === "sm" && "w-11/12 lg:w-4/12",
                       size === "md" && "w-11/12 lg:w-6/12",
                       size === "lg" && "w-11/12 lg:w-9/12",
                     ])}

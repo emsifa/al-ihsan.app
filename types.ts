@@ -19,7 +19,9 @@ export interface Surah {
     en: string;
     id: string;
   };
-  tafsir: string;
+  tafsir: {
+    id: string;
+  };
 }
 
 export interface Verse {

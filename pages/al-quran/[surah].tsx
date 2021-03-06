@@ -24,13 +24,18 @@ import {
   getPrevAndNextSurah,
 } from "../../services/al-quran";
 import { PrevAndNextSurah, SurahDetail } from "../../types";
+import Modal from "../../components/Modal";
+import ExternalLink from "../../components/ExternalLink";
+import Code from "../../components/Code";
 
 interface SurahPageProps {
+  renderedAt: number;
   surah: SurahDetail;
   metadata: PrevAndNextSurah;
 }
 
 interface SurahPageState {
+  showModalInfo: boolean;
   isAudioLoading: boolean;
   isPlayTrack: boolean;
   audioSrc: string | null;
@@ -42,6 +47,7 @@ type SurahPageAction =
   | { type: "play_audio"; src: string; verseNumber?: number }
   | { type: "set_audio_loading"; loading: boolean }
   | { type: "set_play_track"; playTrack: boolean }
+  | { type: "set_show_modal_info"; show: boolean }
   | { type: "stop_audio" };
 
 function reducer(state: SurahPageState, action: SurahPageAction) {
@@ -72,6 +78,10 @@ function reducer(state: SurahPageState, action: SurahPageAction) {
       state.isAudioLoading = false;
       break;
     }
+    case "set_show_modal_info": {
+      state.showModalInfo = action.show;
+      break;
+    }
   }
 }
 
@@ -80,13 +90,18 @@ const initialState: SurahPageState = {
   isPlayTrack: false,
   audioSrc: null,
   playedVerseNumber: null,
+  showModalInfo: false,
 };
 
-const SurahPage: NextPage<SurahPageProps> = ({ surah, metadata }) => {
+const SurahPage: NextPage<SurahPageProps> = ({
+  surah,
+  renderedAt,
+  metadata,
+}) => {
   const { bookmarkedVerseNumber, toggleBookmarkVerse } = useAppContext();
   const [audio, setAudio] = useState<HTMLAudioElement>(null);
   const [
-    { isAudioLoading, isPlayTrack, audioSrc, playedVerseNumber },
+    { isAudioLoading, isPlayTrack, audioSrc, playedVerseNumber, showModalInfo },
     dispatch,
   ] = useImmerReducer(reducer, initialState);
 
@@ -177,7 +192,11 @@ const SurahPage: NextPage<SurahPageProps> = ({ surah, metadata }) => {
         </Link>
       }
       rightButton={
-        <span>
+        <span
+          onClick={() =>
+            dispatch({ type: "set_show_modal_info", show: !showModalInfo })
+          }
+        >
           <FontAwesomeIcon icon={faInfoCircle} className="cursor-pointer" />
         </span>
       }
@@ -188,6 +207,14 @@ const SurahPage: NextPage<SurahPageProps> = ({ surah, metadata }) => {
           {surah.name.transliteration.id}
         </title>
       </Head>
+
+      <ModalInfo
+        shown={showModalInfo}
+        renderedAt={renderedAt}
+        surah={surah}
+        onClose={() => dispatch({ type: "set_show_modal_info", show: false })}
+      />
+
       <div className="mb-5 w-full">
         <div className="mt-5 w-full grid grid-cols-1 gap-4">
           {surah.preBismillah && (
@@ -272,8 +299,13 @@ const SurahPage: NextPage<SurahPageProps> = ({ surah, metadata }) => {
             <div className="w-5/12 text-center">
               {metadata.prev && (
                 <Link href={`/al-quran/${metadata.prev.number}`}>
-                  <div role="button" className="cursor-pointer bg-oxford-blue text-white px-2 py-2 text-sm rounded overflow-ellipsis">
-                    <span className="inline-block mr-2"><FontAwesomeIcon icon={faChevronLeft} /></span>
+                  <div
+                    role="button"
+                    className="cursor-pointer bg-oxford-blue text-white px-2 py-2 text-sm rounded overflow-ellipsis"
+                  >
+                    <span className="inline-block mr-2">
+                      <FontAwesomeIcon icon={faChevronLeft} />
+                    </span>
                     {metadata.prev.name.transliteration.id}
                   </div>
                 </Link>
@@ -281,17 +313,25 @@ const SurahPage: NextPage<SurahPageProps> = ({ surah, metadata }) => {
             </div>
             <div className="w-2/12 text-center px-2">
               <Link href="/al-quran">
-                <div role="button" className="cursor-pointer rounded bg-secondary text-white text-center px-2 py-2 text-sm">
-                  <FontAwesomeIcon icon={faBars}/>
+                <div
+                  role="button"
+                  className="cursor-pointer rounded bg-secondary text-white text-center px-2 py-2 text-sm"
+                >
+                  <FontAwesomeIcon icon={faBars} />
                 </div>
               </Link>
             </div>
             <div className="w-5/12 text-center">
               {metadata.next && (
                 <Link href={`/al-quran/${metadata.next.number}`}>
-                  <div role="button" className="cursor-pointer bg-oxford-blue text-white px-2 py-2 text-sm rounded overflow-ellipsis">
+                  <div
+                    role="button"
+                    className="cursor-pointer bg-oxford-blue text-white px-2 py-2 text-sm rounded overflow-ellipsis"
+                  >
                     {metadata.next.name.transliteration.id}
-                    <span className="inline-block ml-2"><FontAwesomeIcon icon={faChevronRight} /></span>
+                    <span className="inline-block ml-2">
+                      <FontAwesomeIcon icon={faChevronRight} />
+                    </span>
                   </div>
                 </Link>
               )}
@@ -304,6 +344,40 @@ const SurahPage: NextPage<SurahPageProps> = ({ surah, metadata }) => {
 };
 
 export default SurahPage;
+
+const ModalInfo: FC<{
+  shown: boolean;
+  surah: SurahDetail;
+  renderedAt: number;
+  onClose: () => void;
+}> = ({ shown, surah, renderedAt, onClose }) => (
+  <Modal shown={shown} size="sm">
+    <Modal.Header title={`Surah ${surah.name.transliteration.id}`} onClose={onClose} />
+    <Modal.Body>
+      <p className="text-sm">{surah.tafsir.id}</p>
+      <hr className="my-3"/>
+      <p>
+        Data surah ini diambil melalui{" "}
+        <ExternalLink href="https://en.wikipedia.org/wiki/Representational_state_transfer">
+          <em>REST API</em>
+        </ExternalLink>{" "}
+        dari{" "}
+        <ExternalLink href="https://github.com/sutanlab/quran-api">
+          Sutanlab Qur'an API
+        </ExternalLink>{" "}
+        menggunakan endpoint{" "}
+        <ExternalLink href={`https://api.quran.sutanlab.id/surah/${surah.number}`}>
+          <Code>https://api.quran.sutanlab.id/surah/{surah.number}</Code>
+        </ExternalLink>
+      </p>
+      <hr className="my-3"/>
+      <p className="text-sm mb-1">
+        Data pada halaman ini diambil pada:
+      </p>
+      <Code><small>{new Date(renderedAt).toString()}</small></Code>
+    </Modal.Body>
+  </Modal>
+);
 
 const ButtonCircle: FC<{
   className: string;
@@ -340,6 +414,7 @@ export const getStaticProps: GetStaticProps<SurahPageProps> = async ({
     props: {
       surah,
       metadata: prevAndNext,
+      renderedAt: new Date().getTime(),
     },
   };
 };
