@@ -31,7 +31,6 @@ const PrayTimesPage: NextPage = () => {
   const {
     data: regions,
     isLoading: isLoadingRegions,
-    error: regionsError,
   } = useQuery("regions", getRegions);
 
   useEffect(() => {
