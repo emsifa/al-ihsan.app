@@ -40,7 +40,7 @@ const Modal: FC<ModalProps> & { Body: FC, Header: FC<ModalHeaderProps> } = ({
   return isBrowser
     ? ReactDOM.createPortal(
         <Transition show={shown}>
-          <div className="fixed top-0 left-0 w-full h-screen">
+          <div className="fixed top-0 left-0 w-full h-screen z-50">
             <Transition.Child
               enter="transition-opacity duration-150"
               enterFrom="opacity-0"

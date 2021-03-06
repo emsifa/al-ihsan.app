@@ -17,6 +17,8 @@ import { classNames } from "../helpers/utils";
 import { useQuery } from "react-query";
 import { getCalendarEvents } from "../services/calendar-events";
 import { isFriday, isSunday } from "date-fns";
+import Modal from "../components/Modal";
+import Code from "../components/Code";
 
 type MonthYear = {
   month: number;
@@ -24,6 +26,7 @@ type MonthYear = {
 };
 
 const IslamicCalendarPage: NextPage = () => {
+  const [showInfo, setShowInfo] = useState<boolean>(false);
   const [today] = useState<Date>(new Date(format(new Date(), "yyyy-MM-dd")));
   const [{ month, year }, setMonthYear] = useState<MonthYear>({
     month: new Date().getMonth(),
@@ -31,8 +34,6 @@ const IslamicCalendarPage: NextPage = () => {
   });
   const {
     data: events,
-    isLoading: isLoadingEvents,
-    error: eventsError,
   } = useQuery("events", getCalendarEvents);
 
   const [dates, setDates] = useState<DateConversion[]>(
@@ -125,10 +126,18 @@ const IslamicCalendarPage: NextPage = () => {
           </span>
         </Link>
       }
+      rightButton={
+        <span onClick={() => setShowInfo(!showInfo)}>
+          <FontAwesomeIcon icon={faInfoCircle} className="cursor-pointer" />
+        </span>
+      }
     >
       <Head>
         <title>Al-Ihsan Apps &mdash; Kalender Islam</title>
       </Head>
+
+      <ModalInfo shown={showInfo} onClose={() => setShowInfo(false)}/>
+
       <div className="mb-5 w-full mt-3">
         <div className="flex rounded overflow-hidden mt-3 select-none">
           <div
@@ -313,3 +322,24 @@ const IslamicCalendarPage: NextPage = () => {
 };
 
 export default IslamicCalendarPage;
+
+const ModalInfo: FC<{ shown: boolean, onClose: () => void }> = ({ shown, onClose }) => (
+  <Modal shown={shown} size="sm">
+    <Modal.Header title="Kalender Islam" onClose={onClose} />
+    <Modal.Body>
+      <p>
+        Data penanggalan hijriah diambil menggunakan fungsi bawaan <em>javascript</em>
+        {" "}
+        <a
+          className="text-primary"
+          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Code>Intl.DateTimeFormat</Code>
+        </a>{" "}
+        dengan format <em>locale</em> <Code>id-TN-u-ca-islamic-umalqura</Code>.
+      </p>
+    </Modal.Body>
+  </Modal>
+);

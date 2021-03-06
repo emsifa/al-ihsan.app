@@ -137,7 +137,7 @@ export default PrayTimesPage;
 
 const ModalInfo: FC<{ shown: boolean, onClose: () => void }> = ({ shown, onClose }) => (
   <Modal shown={shown} size="sm">
-    <Modal.Header title="KETERANGAN" onClose={onClose} />
+    <Modal.Header title="Waktu Salat" onClose={onClose} />
     <Modal.Body>
       <p>
         Data waktu salat dihitung menggunakan pustaka <em>javascript</em>{" "}
