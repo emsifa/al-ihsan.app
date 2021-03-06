@@ -28,10 +28,10 @@ const PrayTimesPage: NextPage = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [prayTimes, setPrayTimes] = useState<PrayTimes | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const {
-    data: regions,
-    isLoading: isLoadingRegions,
-  } = useQuery("regions", getRegions);
+  const { data: regions, isLoading: isLoadingRegions } = useQuery(
+    "regions",
+    getRegions
+  );
 
   useEffect(() => {
     if (!selectedRegion && regions) {
@@ -72,47 +72,9 @@ const PrayTimesPage: NextPage = () => {
       <Head>
         <title>Al-Ihsan Apps &mdash; Waktu Salat</title>
       </Head>
-      <Modal shown={showInfo} size="sm">
-        <Modal.Header title="KETERANGAN" onClose={() => setShowInfo(false)}/>
-        <Modal.Body>
-          <p>
-            Data waktu salat dihitung menggunakan pustaka <em>javascript</em>{" "}
-            terbuka
-            {" "}
-            <a
-              className="text-primary"
-              href="https://github.com/batoulapps/adhan-js"
-              target="_blank"
-              rel="noreferrer"
-            >
-              adhan.js
-            </a>{" "}
-            dengan parameter sebagai berikut:
-          </p>
-          <table className="border w-full text-sm my-3 rounded">
-            <tr>
-              <td className="border bg-gray-100 px-2 py-1 w-32">Madhab</td>
-              <td className="border px-2 py-1">Shafi</td>
-            </tr>
-            <tr>
-              <td className="border bg-gray-100 px-2 py-1 w-32">Fajr Angle</td>
-              <td className="border px-2 py-1">20&#186;</td>
-            </tr>
-            <tr>
-              <td className="border bg-gray-100 px-2 py-1 w-32">Isha Angle</td>
-              <td className="border px-2 py-1">18&#186;</td>
-            </tr>
-            <tr>
-              <td className="border bg-gray-100 px-2 py-1 w-32">Adjustment</td>
-              <td className="border px-2 py-1">+2 minutes</td>
-            </tr>
-          </table>
-          <p>
-            Parameter diatas digunakan karena hasilnya paling mendekati dengan
-            waktu salat di website-website lain.
-          </p>
-        </Modal.Body>
-      </Modal>
+
+      <ModalInfo shown={showInfo} onClose={() => setShowInfo(false)}/>
+
       <div className="mb-5 w-full mt-3">
         <Select
           className={isLoadingRegions && "text-gray-400"}
@@ -172,6 +134,49 @@ const PrayTimesPage: NextPage = () => {
 };
 
 export default PrayTimesPage;
+
+const ModalInfo: FC<{ shown: boolean, onClose: () => void }> = ({ shown, onClose }) => (
+  <Modal shown={shown} size="sm">
+    <Modal.Header title="KETERANGAN" onClose={onClose} />
+    <Modal.Body>
+      <p>
+        Data waktu salat dihitung menggunakan pustaka <em>javascript</em>{" "}
+        terbuka{" "}
+        <a
+          className="text-primary"
+          href="https://github.com/batoulapps/adhan-js"
+          target="_blank"
+          rel="noreferrer"
+        >
+          adhan.js
+        </a>{" "}
+        dengan parameter sebagai berikut:
+      </p>
+      <table className="border w-full text-sm my-3 rounded">
+        <tr>
+          <td className="border bg-gray-100 px-2 py-1 w-32">Madhab</td>
+          <td className="border px-2 py-1">Shafi</td>
+        </tr>
+        <tr>
+          <td className="border bg-gray-100 px-2 py-1 w-32">Fajr Angle</td>
+          <td className="border px-2 py-1">20&#186;</td>
+        </tr>
+        <tr>
+          <td className="border bg-gray-100 px-2 py-1 w-32">Isha Angle</td>
+          <td className="border px-2 py-1">18&#186;</td>
+        </tr>
+        <tr>
+          <td className="border bg-gray-100 px-2 py-1 w-32">Adjustment</td>
+          <td className="border px-2 py-1">+2 minutes</td>
+        </tr>
+      </table>
+      <p>
+        Parameter diatas digunakan karena hasilnya paling mendekati dengan waktu
+        salat di website-website lain.
+      </p>
+    </Modal.Body>
+  </Modal>
+);
 
 const PrayTime: FC<{ label: string; time: string }> = ({ label, time }) => (
   <div className="flex px-3 py-2 border-b hover:bg-gray-100">
