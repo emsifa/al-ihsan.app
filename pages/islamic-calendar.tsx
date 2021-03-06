@@ -16,6 +16,7 @@ import { CalendarEvent, DateConversion } from "../types";
 import { classNames } from "../helpers/utils";
 import { useQuery } from "react-query";
 import { getCalendarEvents } from "../services/calendar-events";
+import { isFriday, isSunday } from "date-fns";
 
 type MonthYear = {
   month: number;
@@ -207,7 +208,13 @@ const IslamicCalendarPage: NextPage = () => {
                     "border-zulhijjah-500",
                 ])}
               >
-                <span className="inline-block p-2 text-sm">
+                <span
+                  className={classNames([
+                    "inline-block p-2 text-sm",
+                    isSunday(date.date) && "text-violet-red font-semibold",
+                    isFriday(date.date) && "text-primary font-semibold",
+                  ])}
+                >
                   {format(date.date, "d", { locale: id })}
                 </span>
                 <span
