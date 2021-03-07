@@ -151,36 +151,7 @@ const IslamicCalendarPage: NextPage = () => {
           <div className="mt-3">
             <h4 className="mb-2 text-gray-500 font-semibold">Hari Spesial</h4>
             {displayEvents.map((data) => (
-              <div className="rounded bg-white w-full px-3 py-2 mb-3 select-none">
-                <div className="flex">
-                  <div className="flex-grow">
-                    <p className="text-sm">
-                      <span className="font-semibold text-primary">
-                        {data.date.hijri.day} {data.date.hijri.month.name}
-                      </span>
-                      <span className="mx-2 opacity-20">/</span>
-                      <small className="text-secondary font-semibold">
-                        {format(data.date.date, "EEEE, dd MMMM", {
-                          locale: id,
-                        })}
-                      </small>
-                    </p>
-                    <h4 className="text-lg font-semibold text-oxford-blue">
-                      {data.event.name}
-                    </h4>
-                  </div>
-                  <div className="w-auto text-2xl flex flex-wrap content-center justify-center">
-                    <a
-                      className="text-gray-300 hover:text-primary"
-                      href={data.event.url}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      <FontAwesomeIcon icon={faInfoCircle} />
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <CardEvent event={data.event} date={data.date} />
             ))}
           </div>
         )}
@@ -320,6 +291,40 @@ const MonthsInfo: FC<{ months: HijriMonth[] }> = ({ months }) => (
         </span>
       </div>
     ))}
+  </div>
+);
+
+const CardEvent: FC<{ event: CalendarEvent; date: DateConversion }> = ({
+  date,
+  event,
+}) => (
+  <div className="rounded bg-white w-full px-3 py-2 mb-3 select-none">
+    <div className="flex">
+      <div className="flex-grow">
+        <p className="text-sm">
+          <span className="font-semibold text-primary">
+            {date.hijri.day} {date.hijri.month.name}
+          </span>
+          <span className="mx-2 opacity-20">/</span>
+          <small className="text-secondary font-semibold">
+            {format(date.date, "EEEE, dd MMMM", {
+              locale: id,
+            })}
+          </small>
+        </p>
+        <h4 className="text-lg font-semibold text-oxford-blue">{event.name}</h4>
+      </div>
+      <div className="w-auto text-2xl flex flex-wrap content-center justify-center">
+        <a
+          className="text-gray-300 hover:text-primary"
+          href={event.url}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+        </a>
+      </div>
+    </div>
   </div>
 );
 
