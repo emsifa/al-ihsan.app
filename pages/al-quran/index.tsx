@@ -20,7 +20,6 @@ import { classNames } from "../../helpers/utils";
 import Modal from "../../components/Modal";
 import ExternalLink from "../../components/ExternalLink";
 import Code from "../../components/Code";
-import { format } from "date-fns";
 
 const BookmarkLinkCard = dynamic(
   () => import("../../components/BookmarkLinkCard")
@@ -132,32 +131,30 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
 
         <div className="mt-3 w-full grid grid-cols-2 gap-3">
           {filteredSurah.map((surah) => (
-            <div key={surah.number} className="w-full">
-              <SurahCard
-                key={surah.number}
-                href={`/al-quran/${surah.number}`}
-                number={surah.number}
-                name={
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: highlight(surah.name.short, searchRegex),
-                    }}
-                  />
-                }
-                nameLatin={
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: highlight(
-                        surah.name.transliteration.id,
-                        searchRegex
-                      ),
-                    }}
-                  />
-                }
-                isStarred={data.quran.starredSurah.indexOf(surah.number) > -1}
-                onClickStar={() => toggleStarSurah(surah.number)}
-              />
-            </div>
+            <SurahCard
+              key={surah.number}
+              href={`/al-quran/${surah.number}`}
+              number={surah.number}
+              name={
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(surah.name.short, searchRegex),
+                  }}
+                />
+              }
+              nameLatin={
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(
+                      surah.name.transliteration.id,
+                      searchRegex
+                    ),
+                  }}
+                />
+              }
+              isStarred={data.quran.starredSurah.indexOf(surah.number) > -1}
+              onClickStar={() => toggleStarSurah(surah.number)}
+            />
           ))}
         </div>
       </div>
@@ -192,14 +189,14 @@ const ModalInfo: FC<{
       <p className="text-sm mt-3 pt-3 border-t mb-1">
         Data pada halaman ini diambil pada:
       </p>
-      <Code><small>{new Date(renderedAt).toString()}</small></Code>
+      <Code>
+        <small>{new Date(renderedAt).toString()}</small>
+      </Code>
     </Modal.Body>
   </Modal>
 );
 
-export const getStaticProps: GetStaticProps<AlQuranPageProps> = async (
-  context
-) => {
+export const getStaticProps: GetStaticProps<AlQuranPageProps> = async () => {
   const listSurah = await getListSurah();
   return {
     props: {
