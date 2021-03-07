@@ -40,7 +40,7 @@ const PrayTimesPage: NextPage<PrayTimesPageProps> = ({ regions }) => {
 
   useEffect(() => {
     const region = (regions || []).find((r) => r.id === selectedRegion);
-    setPrayTimes(region ? getPrayTimes(region.lat, region.lng, date) : null);
+    setPrayTimes(region ? getPrayTimes(region.lat, region.lng, date, region.gmt) : null);
   }, [date, selectedRegion, regions]);
 
   return (

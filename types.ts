@@ -115,6 +115,7 @@ export interface PrayTimeRegion {
   name: string;
   lat: number;
   lng: number;
+  gmt: number;
 }
 
 export interface HijriMonth {
