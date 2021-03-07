@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
+import LogoAlIhsan from "../components/LogoAlIhsan";
 import LogoWithTypo from "../components/LogoWithTypo";
 import SquareMenu from "../components/SquareMenu";
 
@@ -9,8 +10,14 @@ export default function Home() {
       <Head>
         <title>Al-Ihsan Apps</title>
       </Head>
-      <div className="text-center mb-5">
-        <LogoWithTypo/>
+      <div className="mb-5 flex flex-wrap justify-center content-center">
+        <div className="w-full sm:w-auto flex justify-center">
+          <LogoAlIhsan size={64}/>
+        </div>
+        <div className="w-full sm:w-auto px-3 select-none text-center">
+          <h1 className="font-bold text-3xl text-primary">Al-Ihsan Apps</h1>
+          <p className="text-sm font-semibold text-oxford-blue">Kumpulan aplikasi dan informasi islami.</p>
+        </div>
       </div>
       <div className="w-full grid grid-cols-2 grid-flow-row-dense md:grid-cols-3 gap-4">
         <div className=""><SquareMenu href="/al-quran" icon="/icon-quran.svg" label="Al-Qur'an"/></div>
