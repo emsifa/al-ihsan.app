@@ -7,8 +7,7 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addDays } from "date-fns";
-import format from "date-fns/format";
+import { format, addDays } from "date-fns";
 import id from "date-fns/locale/id";
 import { NextPage } from "next";
 import Head from "next/head";
@@ -48,7 +47,9 @@ const PrayTimesPage: NextPage = () => {
 
   return (
     <LayoutWithNavbar
-      navbarTitle={<NavbarTitle title="Waktu Salat" icon="/icon-salat-clock.svg"/>}
+      navbarTitle={
+        <NavbarTitle title="Waktu Salat" icon="/icon-salat-clock.svg" />
+      }
       leftButton={
         <Link href="/">
           <span>
@@ -93,25 +94,15 @@ const PrayTimesPage: NextPage = () => {
             <option value={region.id}>{region.name}</option>
           ))}
         </Select>
-        <div className="flex rounded overflow-hidden mt-3 select-none">
-          <div
-            role="button"
-            className="w-2/12 cursor-pointer flex flex-wrap content-center justify-center px-2 py-1 text-white bg-primary"
-            onClick={() => setDate(addDays(date, -1))}
-          >
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </div>
-          <div className="w-8/12 text-center px-2 py-2 text-sm text-white bg-secondary">
-            {format(date, "EEEE, dd MMMM yyyy", { locale: id })}
-          </div>
-          <div
-            role="button"
-            className="w-2/12 cursor-pointer flex flex-wrap content-center justify-center px-2 py-1 text-white bg-primary"
-            onClick={() => setDate(addDays(date, 1))}
-          >
-            <FontAwesomeIcon icon={faArrowRight} />
-          </div>
+
+        <div className="mt-3">
+          <DateNavigator
+            date={date}
+            onClickPrev={() => setDate(addDays(date, -1))}
+            onClickNext={() => setDate(addDays(date, 1))}
+          />
         </div>
+
         {prayTimes && (
           <div className="rounded bg-white mt-3 select-none overflow-hidden">
             <PrayTime label="Subuh" time={`${prayTimes.fajr}`} />
@@ -127,6 +118,32 @@ const PrayTimesPage: NextPage = () => {
 };
 
 export default PrayTimesPage;
+
+const DateNavigator: FC<{
+  date: Date;
+  onClickPrev: () => void;
+  onClickNext: () => void;
+}> = ({ date, onClickPrev, onClickNext }) => (
+  <div className="flex rounded overflow-hidden select-none">
+    <div
+      role="button"
+      className="w-2/12 cursor-pointer flex flex-wrap content-center justify-center px-2 py-1 text-white bg-primary"
+      onClick={onClickPrev}
+    >
+      <FontAwesomeIcon icon={faArrowLeft} />
+    </div>
+    <div className="w-8/12 text-center px-2 py-2 text-sm text-white bg-secondary">
+      {format(date, "EEEE, dd MMMM yyyy", { locale: id })}
+    </div>
+    <div
+      role="button"
+      className="w-2/12 cursor-pointer flex flex-wrap content-center justify-center px-2 py-1 text-white bg-primary"
+      onClick={onClickNext}
+    >
+      <FontAwesomeIcon icon={faArrowRight} />
+    </div>
+  </div>
+);
 
 const ModalInfo: FC<{ shown: boolean; onClose: () => void }> = ({
   shown,
