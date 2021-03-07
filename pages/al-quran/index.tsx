@@ -132,7 +132,7 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
               }
               nameLatin={
                 <HighlightedText
-                  text={surah.name.translation.id}
+                  text={surah.name.transliteration.id}
                   regex={searchRegex}
                 />
               }
