@@ -164,15 +164,7 @@ const ModalInfo: FC<{ shown: boolean; onClose: () => void }> = ({
           <td className="border bg-gray-100 px-2 py-1 w-32">Isha Angle</td>
           <td className="border px-2 py-1">18&#186;</td>
         </tr>
-        <tr>
-          <td className="border bg-gray-100 px-2 py-1 w-32">Adjustment</td>
-          <td className="border px-2 py-1">+2 minutes</td>
-        </tr>
       </table>
-      <p>
-        Parameter diatas digunakan karena hasilnya paling mendekati dengan waktu
-        salat di website-website lain.
-      </p>
     </Modal.Body>
   </Modal>
 );
