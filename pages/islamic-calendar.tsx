@@ -9,7 +9,7 @@ import id from "date-fns/locale/id";
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import { getCalendarDates } from "../helpers/calendar";
 import { CalendarEvent, DateConversion } from "../types";
@@ -20,6 +20,7 @@ import { isFriday, isSunday } from "date-fns";
 import Modal from "../components/Modal";
 import Code from "../components/Code";
 import ExternalLink from "../components/ExternalLink";
+import NavbarTitle from "../components/NavbarTitle";
 
 type MonthYear = {
   month: number;
@@ -109,14 +110,10 @@ const IslamicCalendarPage: NextPage = () => {
   return (
     <LayoutWithNavbar
       navbarTitle={
-        <span>
-          <img
-            src="/icon-islamic-calendar.svg"
-            alt="Waktu Salat"
-            className="h-5 inline-block mr-2 -mt-1"
-          />
-          Kalender Islam
-        </span>
+        <NavbarTitle
+          title="Kalender Islam"
+          icon="/icon-islamic-calendar.svg"
+        />
       }
       leftButton={
         <Link href="/">

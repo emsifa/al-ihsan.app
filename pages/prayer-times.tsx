@@ -19,6 +19,7 @@ import Clock from "../components/Clock";
 import ExternalLink from "../components/ExternalLink";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import Modal from "../components/Modal";
+import NavbarTitle from "../components/NavbarTitle";
 import Select from "../components/Select";
 import { getPrayTimes } from "../helpers/pray-time";
 import { getRegions } from "../services/prayer-times";
@@ -47,16 +48,7 @@ const PrayTimesPage: NextPage = () => {
 
   return (
     <LayoutWithNavbar
-      navbarTitle={
-        <span>
-          <img
-            src="/icon-salat-clock.svg"
-            alt="Waktu Salat"
-            className="h-5 inline-block mr-2 -mt-1"
-          />
-          Waktu Salat
-        </span>
-      }
+      navbarTitle={<NavbarTitle title="Waktu Salat" icon="/icon-salat-clock.svg"/>}
       leftButton={
         <Link href="/">
           <span>

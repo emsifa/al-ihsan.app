@@ -20,6 +20,7 @@ import { classNames } from "../../helpers/utils";
 import Modal from "../../components/Modal";
 import ExternalLink from "../../components/ExternalLink";
 import Code from "../../components/Code";
+import NavbarTitle from "../../components/NavbarTitle";
 
 const BookmarkLinkCard = dynamic(
   () => import("../../components/BookmarkLinkCard")
@@ -69,16 +70,7 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
 
   return (
     <LayoutWithNavbar
-      navbarTitle={
-        <span>
-          <img
-            src="/icon-quran.svg"
-            alt="Al-Qur'an"
-            className="h-5 inline-block mr-2 -mt-1"
-          />
-          Al-Qur'an
-        </span>
-      }
+      navbarTitle={<NavbarTitle title="Al-Qur'an" icon="/icon-quran.svg" />}
       leftButton={
         <Link href="/">
           <span>

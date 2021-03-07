@@ -27,6 +27,7 @@ import { PrevAndNextSurah, SurahDetail } from "../../types";
 import Modal from "../../components/Modal";
 import ExternalLink from "../../components/ExternalLink";
 import Code from "../../components/Code";
+import NavbarTitle from "../../components/NavbarTitle";
 
 interface SurahPageProps {
   renderedAt: number;
@@ -177,14 +178,10 @@ const SurahPage: NextPage<SurahPageProps> = ({
   return (
     <LayoutWithNavbar
       navbarTitle={
-        <span>
-          <img
-            src="/icon-quran.svg"
-            alt="Al-Qur'an"
-            className="h-5 inline-block mr-2 -mt-1"
-          />
-          Surah {surah.name.transliteration.id}
-        </span>
+        <NavbarTitle
+          title={`Surah ${surah.name.transliteration.id}`}
+          icon="/icon-quran.svg"
+        />
       }
       leftButton={
         <Link href="/al-quran">
@@ -352,10 +349,13 @@ const ModalInfo: FC<{
   onClose: () => void;
 }> = ({ shown, surah, renderedAt, onClose }) => (
   <Modal shown={shown} size="sm">
-    <Modal.Header title={`Surah ${surah.name.transliteration.id}`} onClose={onClose} />
+    <Modal.Header
+      title={`Surah ${surah.name.transliteration.id}`}
+      onClose={onClose}
+    />
     <Modal.Body>
       <p className="text-sm">{surah.tafsir.id}</p>
-      <hr className="my-3"/>
+      <hr className="my-3" />
       <p>
         Data surah ini diambil melalui{" "}
         <ExternalLink href="https://en.wikipedia.org/wiki/Representational_state_transfer">
@@ -366,15 +366,17 @@ const ModalInfo: FC<{
           Sutanlab Qur'an API
         </ExternalLink>{" "}
         menggunakan endpoint{" "}
-        <ExternalLink href={`https://api.quran.sutanlab.id/surah/${surah.number}`}>
+        <ExternalLink
+          href={`https://api.quran.sutanlab.id/surah/${surah.number}`}
+        >
           <Code>https://api.quran.sutanlab.id/surah/{surah.number}</Code>
         </ExternalLink>
       </p>
-      <hr className="my-3"/>
-      <p className="text-sm mb-1">
-        Data pada halaman ini diambil pada:
-      </p>
-      <Code><small>{new Date(renderedAt).toString()}</small></Code>
+      <hr className="my-3" />
+      <p className="text-sm mb-1">Data pada halaman ini diambil pada:</p>
+      <Code>
+        <small>{new Date(renderedAt).toString()}</small>
+      </Code>
     </Modal.Body>
   </Modal>
 );
