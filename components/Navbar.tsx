@@ -4,7 +4,7 @@ import React, { FC, ReactElement } from "react";
 import Container from "./Container";
 
 export interface NavbarProps {
-  title?: null | ReactElement;
+  title?: null | string | ReactElement;
   leftButton?: ReactElement;
   rightButton?: ReactElement;
 }
