@@ -1,7 +1,6 @@
-import axios from "axios";
 import { PrayTimeRegion } from "../types";
+import prayTimes from "../data/praytime-region.json";
 
 export async function getRegions(): Promise<PrayTimeRegion[]> {
-  const response = await axios.get("/data/praytime-region.json");
-  return response.data;
+  return prayTimes;
 }

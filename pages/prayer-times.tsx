@@ -4,16 +4,14 @@ import {
   faChevronDown,
   faInfoCircle,
   faMapMarkerAlt,
-  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, addDays } from "date-fns";
 import id from "date-fns/locale/id";
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import Clock from "../components/Clock";
 import ExternalLink from "../components/ExternalLink";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
@@ -22,17 +20,17 @@ import NavbarTitle from "../components/NavbarTitle";
 import Select from "../components/Select";
 import { getPrayTimes } from "../helpers/pray-time";
 import { getRegions } from "../services/prayer-times";
-import { PrayTimes } from "../types";
+import { PrayTimeRegion, PrayTimes } from "../types";
 
-const PrayTimesPage: NextPage = () => {
+interface PrayTimesPageProps {
+  regions: PrayTimeRegion[];
+}
+
+const PrayTimesPage: NextPage<PrayTimesPageProps> = ({ regions }) => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const [date, setDate] = useState<Date>(new Date());
   const [prayTimes, setPrayTimes] = useState<PrayTimes | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const { data: regions, isLoading: isLoadingRegions } = useQuery(
-    "regions",
-    getRegions
-  );
 
   useEffect(() => {
     if (!selectedRegion && regions) {
@@ -71,25 +69,17 @@ const PrayTimesPage: NextPage = () => {
 
       <div className="mb-5 w-full mt-3">
         <Select
-          className={isLoadingRegions && "text-gray-400"}
           leftIcon={
             <FontAwesomeIcon
               className={selectedRegion ? "text-primary" : "text-gray-300"}
               icon={faMapMarkerAlt}
             />
           }
-          rightIcon={
-            isLoadingRegions ? (
-              <FontAwesomeIcon icon={faSpinner} spin />
-            ) : (
-              <FontAwesomeIcon icon={faChevronDown} />
-            )
-          }
+          rightIcon={<FontAwesomeIcon icon={faChevronDown} />}
           onChange={(e) =>
             setSelectedRegion((e.target as HTMLSelectElement).value)
           }
         >
-          {isLoadingRegions && <option>Mengambil data wilayah...</option>}
           {(regions || []).map((region) => (
             <option value={region.id}>{region.name}</option>
           ))}
@@ -191,3 +181,12 @@ const PrayTime: FC<{ label: string; time: string }> = ({ label, time }) => (
     </div>
   </div>
 );
+
+export const getStaticProps: GetStaticProps<PrayTimesPageProps> = async () => {
+  const regions = await getRegions();
+  return {
+    props: {
+      regions,
+    },
+  };
+};
