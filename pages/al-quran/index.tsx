@@ -136,20 +136,12 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
               href={`/al-quran/${surah.number}`}
               number={surah.number}
               name={
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: highlight(surah.name.short, searchRegex),
-                  }}
-                />
+                <HighlightedText text={surah.name.short} regex={searchRegex} />
               }
               nameLatin={
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: highlight(
-                      surah.name.transliteration.id,
-                      searchRegex
-                    ),
-                  }}
+                <HighlightedText
+                  text={surah.name.translation.id}
+                  regex={searchRegex}
                 />
               }
               isStarred={data.quran.starredSurah.indexOf(surah.number) > -1}
@@ -163,6 +155,17 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
 };
 
 export default AlQuranPage;
+
+const HighlightedText: FC<{ text: string; regex: RegExp | null }> = ({
+  text,
+  regex,
+}) => (
+  <span
+    dangerouslySetInnerHTML={{
+      __html: highlight(text, regex),
+    }}
+  />
+);
 
 const ModalInfo: FC<{
   shown: boolean;
