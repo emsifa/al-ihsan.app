@@ -1,0 +1,170 @@
+[
+  {
+    "id": "1",
+    "name": "DKI Jakarta",
+    "lat": -6.1744,
+    "lng": 106.8294
+  },
+  {
+    "id": "2",
+    "name": "Bandung",
+    "lat": -6.9039,
+    "lng": 107.6186
+  },
+  {
+    "id": "3",
+    "name": "Malang",
+    "lat": -7.9797,
+    "lng": 112.6304
+  },
+  {
+    "id": "4",
+    "name": "Medan",
+    "lat": 3.5833,
+    "lng": 98.6667
+  },
+  {
+    "id": "5",
+    "name": "Padang",
+    "lat": -0.9532,
+    "lng": 100.3677
+  },
+  {
+    "id": "6",
+    "name": "Palembang",
+    "lat": -2.9167,
+    "lng": 104.75
+  },
+  {
+    "id": "7",
+    "name": "Semarang",
+    "lat": -6.9932,
+    "lng": 110.4203
+  },
+  {
+    "id": "8",
+    "name": "Surabaya",
+    "lat": -7.2492,
+    "lng": 112.7508
+  },
+  {
+    "id": "9",
+    "name": "Denpasar",
+    "lat": -8.65,
+    "lng": 115.2167
+  },
+  {
+    "id": "10",
+    "name": "Balikpapan",
+    "lat": -1.2833,
+    "lng": 116.8333
+  },
+  {
+    "id": "11",
+    "name": "Bandar Lampung",
+    "lat": -5.4254,
+    "lng": 105.258
+  },
+  {
+    "id": "12",
+    "name": "Banjarmasin",
+    "lat": -3.3333,
+    "lng": 114.5833
+  },
+  {
+    "id": "13",
+    "name": "Batam",
+    "lat": 1.1429562275853553,
+    "lng": 104.02048495202669
+  },
+  {
+    "id": "14",
+    "name": "Bekasi",
+    "lat": -6.2349,
+    "lng": 106.9896
+  },
+  {
+    "id": "15",
+    "name": "Bogor",
+    "lat": -6.5944,
+    "lng": 106.7892
+  },
+  {
+    "id": "16",
+    "name": "Depok",
+    "lat": -6.3433,
+    "lng": 106.4989
+  },
+  {
+    "id": "17",
+    "name": "Jember",
+    "lat": -8.1705,
+    "lng": 113.702
+  },
+  {
+    "id": "18",
+    "name": "Kuta",
+    "lat": -7.0186,
+    "lng": 109.3632
+  },
+  {
+    "id": "19",
+    "name": "Makassar",
+    "lat": -5.14,
+    "lng": 119.4221
+  },
+  {
+    "id": "20",
+    "name": "Mataram",
+    "lat": -8.5833,
+    "lng": 116.1167
+  },
+  {
+    "id": "21",
+    "name": "Palu",
+    "lat": -0.8917,
+    "lng": 119.8707
+  },
+  {
+    "id": "22",
+    "name": "Pekanbaru",
+    "lat": 0.5333,
+    "lng": 101.45
+  },
+  {
+    "id": "23",
+    "name": "Pontianak",
+    "lat": -0.0333,
+    "lng": 109.3333
+  },
+  {
+    "id": "24",
+    "name": "Kediri",
+    "lat": -7.8167,
+    "lng": 112.0167
+  },
+  {
+    "id": "25",
+    "name": "Samarinda",
+    "lat": -0.5,
+    "lng": 117.15
+  },
+  {
+    "id": "26",
+    "name": "Tasikmalaya",
+    "lat": -7.3274,
+    "lng": 108.2207
+  },
+  {
+    "id": "27",
+    "name": "Ubud",
+    "lat": -8.4203,
+    "lng": 115.223
+  },
+  {
+    "id": "28",
+    "name": "Yogyakarta",
+    "lat": -7.7828,
+    "lng": 110.3608
+  }
+]

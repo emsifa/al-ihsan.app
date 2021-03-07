@@ -21,6 +21,7 @@ import Modal from "../../components/Modal";
 import ExternalLink from "../../components/ExternalLink";
 import Code from "../../components/Code";
 import NavbarTitle from "../../components/NavbarTitle";
+import HighlightedText from "../../components/HighlightedText";
 
 const BookmarkLinkCard = dynamic(
   () => import("../../components/BookmarkLinkCard")
@@ -29,10 +30,6 @@ const BookmarkLinkCard = dynamic(
 interface AlQuranPageProps {
   renderedAt: number;
   listSurah: Surah[];
-}
-
-function highlight(text: string, regex: RegExp | null): string {
-  return regex ? text.replace(regex, "<u class='text-primary'>$&</u>") : text;
 }
 
 const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
@@ -147,17 +144,6 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
 };
 
 export default AlQuranPage;
-
-const HighlightedText: FC<{ text: string; regex: RegExp | null }> = ({
-  text,
-  regex,
-}) => (
-  <span
-    dangerouslySetInnerHTML={{
-      __html: highlight(text, regex),
-    }}
-  />
-);
 
 const ModalInfo: FC<{
   shown: boolean;

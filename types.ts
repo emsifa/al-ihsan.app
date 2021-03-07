@@ -142,3 +142,11 @@ export interface CalendarEvent {
   name: string;
   url: string;
 }
+
+export interface Dua {
+  name: string;
+  arabic: string;
+  transliteration: string;
+  translation: string;
+  source: string;
+}
