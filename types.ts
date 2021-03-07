@@ -117,12 +117,16 @@ export interface PrayTimeRegion {
   lng: number;
 }
 
+export interface HijriMonth {
+  index: number;
+  name: string;
+  nameShort: string;
+}
+
 export interface HijriDate {
   day: number;
-  month: number;
   year: number;
-  monthName: string;
-  monthNameShort: string;
+  month: HijriMonth;
 }
 
 export interface DateConversion {

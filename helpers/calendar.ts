@@ -24,10 +24,12 @@ function toHijri(date: Date): HijriDate {
 
   return {
     day: parseInt(partValue(numericParts, "day")),
-    month: parseInt(partValue(numericParts, "month")),
     year: parseInt(partValue(numericParts, "year")),
-    monthName: partValue(monthParts, "month"),
-    monthNameShort: partValue(monthShortParts, "month"),
+    month: {
+      index: parseInt(partValue(numericParts, "month")) - 1,
+      name: partValue(monthParts, "month"),
+      nameShort: partValue(monthShortParts, "month"),
+    },
   };
 }
 
