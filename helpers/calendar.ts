@@ -8,27 +8,21 @@ function toHijri(date: Date): HijriDate {
     month: "numeric",
     year: "numeric",
   });
-  const intlMonth = new Intl.DateTimeFormat(intlFormat, {
-    month: "long",
-  });
-  const intlMonthShort = new Intl.DateTimeFormat(intlFormat, {
-    month: "short",
-  });
 
   const numericParts = intlNumeric.formatToParts(date);
-  const monthParts = intlMonth.formatToParts(date);
-  const monthShortParts = intlMonthShort.formatToParts(date);
 
   const partValue = (parts: Intl.DateTimeFormatPart[], type: string) =>
     (parts.find((p) => p.type === type) || {}).value;
+
+  const monthIndex = parseInt(partValue(numericParts, "month")) - 1;
 
   return {
     day: parseInt(partValue(numericParts, "day")),
     year: parseInt(partValue(numericParts, "year")),
     month: {
-      index: parseInt(partValue(numericParts, "month")) - 1,
-      name: partValue(monthParts, "month"),
-      nameShort: partValue(monthShortParts, "month"),
+      index: monthIndex,
+      name: getHijriMonthName(monthIndex),
+      nameShort: getHijriMonthShortName(monthIndex),
     },
   };
 }
@@ -72,4 +66,42 @@ export function getCalendarDates(date: Date): DateConversion[] {
       isOtherMonth: start.getMonth() !== date.getMonth(),
     };
   });
+}
+
+export function getHijriMonthName(index: number): string | null {
+  return (
+    [
+      "Muharram",
+      "Shafar",
+      "Rabiul Awal",
+      "Rabiul Akhir",
+      "Jumadil Awal",
+      "Jumadil Akhir",
+      "Rajab",
+      "Syaban",
+      "Ramadhan",
+      "Syawal",
+      "Zulqaidah",
+      "Zulhijjah",
+    ][index] || null
+  );
+}
+
+export function getHijriMonthShortName(index: number): string | null {
+  return (
+    [
+      "Muh",
+      "Sha",
+      "R.Aw",
+      "R.Ak",
+      "J.Al",
+      "J.Ak",
+      "Raj",
+      "Sya",
+      "Ram",
+      "Syaw",
+      "Zulq",
+      "Zulh",
+    ][index] || null
+  );
 }
