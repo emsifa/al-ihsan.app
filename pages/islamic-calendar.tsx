@@ -56,13 +56,12 @@ const IslamicCalendarPage: NextPage = () => {
       return [];
     }
 
-    const dateIndexes: { [key: string]: DateConversion } = dates.reduce(
-      (indexes, date) => {
-        indexes[`${date.hijri.day}/${date.hijri.month}`] = date;
+    const dateIndexes: { [key: string]: DateConversion } = dates
+      .filter((date) => !date.isOtherMonth)
+      .reduce((indexes, date) => {
+        indexes[`${date.hijri.day}/${date.hijri.month.index + 1}`] = date;
         return indexes;
-      },
-      {}
-    );
+      }, {});
 
     return events
       .filter((event) => dateIndexes[`${event.day}/${event.month}`])
