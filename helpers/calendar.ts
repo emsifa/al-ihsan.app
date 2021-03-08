@@ -22,7 +22,6 @@ function toHijri(date: Date): HijriDate {
     month: {
       index: monthIndex,
       name: getHijriMonthName(monthIndex),
-      nameShort: getHijriMonthShortName(monthIndex),
     },
   };
 }
@@ -83,25 +82,6 @@ export function getHijriMonthName(index: number): string | null {
       "Syawal",
       "Zulqaidah",
       "Zulhijjah",
-    ][index] || null
-  );
-}
-
-export function getHijriMonthShortName(index: number): string | null {
-  return (
-    [
-      "Muh",
-      "Sha",
-      "R.Aw",
-      "R.Ak",
-      "J.Al",
-      "J.Ak",
-      "Raj",
-      "Sya",
-      "Ram",
-      "Syaw",
-      "Zulq",
-      "Zulh",
     ][index] || null
   );
 }
