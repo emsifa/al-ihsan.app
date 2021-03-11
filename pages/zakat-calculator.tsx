@@ -163,7 +163,7 @@ const ZakatCalculatorPage: NextPage = () => {
               Apakah kamu wajib zakat?
             </h4>
             <div className="text-lg sm:text-2xl font-bold">
-              {incomeZakat >= Math.round(nishab / 12) ? (
+              {(monthlyIncome + additionalMonthlyIncome) >= Math.round(nishab / 12) ? (
                 <span className="text-primary">YA</span>
               ) : (
                 <span className="text-violet-red">TIDAK</span>
