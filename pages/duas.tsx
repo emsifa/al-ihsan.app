@@ -18,6 +18,7 @@ interface DuasPageProps {
 
 const DuasPage: NextPage<DuasPageProps> = ({ duas }) => {
   const [keyword, setKeyword] = useState<string>("");
+  const [focusKeyword, setFocusKeyword] = useState<boolean>(false);
   const [searchRegex, setSearchRegex] = useState<RegExp | null>(null);
   const [filteredDuas, setFilteredSurah] = useState<Dua[]>(duas);
   useEffect(() => {
@@ -57,14 +58,21 @@ const DuasPage: NextPage<DuasPageProps> = ({ duas }) => {
           onChange={(e) => setKeyword((e.target as HTMLInputElement).value)}
           className="w-full"
           placeholder="Cari doa ..."
-          rightIcon={<FontAwesomeIcon icon={faSearch} />}
+          onFocus={() => setFocusKeyword(true)}
+          onBlur={() => setFocusKeyword(false)}
+          leftIcon={
+            <FontAwesomeIcon
+              icon={faSearch}
+              className={focusKeyword ? "text-primary" : "text-gray-300"}
+            />
+          }
         />
       </div>
       <div className="mt-3">
         {filteredDuas.map((dua, i) => (
           <div className={i > 0 && "mt-3"}>
             <DuaCard
-              name={<HighlightedText text={dua.name} regex={searchRegex}/>}
+              name={<HighlightedText text={dua.name} regex={searchRegex} />}
               arabic={dua.arabic}
               transliteration={dua.transliteration}
               translation={dua.translation}

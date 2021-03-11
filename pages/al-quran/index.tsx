@@ -35,6 +35,7 @@ interface AlQuranPageProps {
 const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>("");
+  const [focusKeyword, setFocusKeyword] = useState<boolean>(false);
   const [searchRegex, setSearchRegex] = useState<RegExp | null>(null);
   const [isFilterStarred, setIsFilterStarred] = useState<boolean>(false);
   const [filteredSurah, setFilteredSurah] = useState<Surah[]>(listSurah);
@@ -102,7 +103,9 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
             onChange={(e) => setKeyword((e.target as HTMLInputElement).value)}
             className="w-full"
             placeholder="Cari surah ..."
-            leftIcon={
+            onFocus={() => setFocusKeyword(true)}
+            onBlur={() => setFocusKeyword(false)}
+            rightIcon={
               <span
                 className={classNames([
                   "cursor-pointer",
@@ -114,7 +117,9 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
                 <FontAwesomeIcon icon={faStar} />
               </span>
             }
-            rightIcon={<FontAwesomeIcon icon={faSearch} />}
+            leftIcon={<FontAwesomeIcon icon={faSearch} className={classNames([
+              focusKeyword ? "text-primary" : "text-gray-300"
+            ])} />}
           />
         </div>
 

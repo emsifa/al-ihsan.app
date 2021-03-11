@@ -14,7 +14,6 @@ const Input: FC<InputProps> = ({
   rightIcon,
   ...props
 }) => {
-  const [focus, setFocus] = useState<boolean>(false);
   return (
     <div className={mergeClasses(wrapperClassName, "relative")}>
       {leftIcon && (
@@ -27,7 +26,6 @@ const Input: FC<InputProps> = ({
         </div>
       )}
       <input
-        type="text"
         className={mergeClasses(className, [
           "bg-white w-full px-3 py-2 rounded",
           "focus:outline-none focus:border-2 focus:border-primary focus:shadow-lg",
@@ -35,15 +33,12 @@ const Input: FC<InputProps> = ({
           leftIcon && "pl-10",
           rightIcon && "pr-10",
         ])}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
         {...props}
       />
       {rightIcon && (
         <div
           className={classNames([
             "absolute right-0 top-0 px-3 py-2",
-            focus ? "text-secondary" : "text-gray-300",
           ])}
         >
           {rightIcon}
