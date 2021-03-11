@@ -10,7 +10,7 @@ import { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
-import Input from "../../components/Input";
+import InputText from "../../components/InputText";
 import LayoutWithNavbar from "../../components/LayoutWithNavbar";
 import SurahCard from "../../components/SurahCard";
 import useAppContext from "../../hooks/useAppData";
@@ -98,7 +98,7 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
         )}
 
         <div className="mt-3">
-          <Input
+          <InputText
             value={keyword}
             onChange={(e) => setKeyword((e.target as HTMLInputElement).value)}
             className="w-full"

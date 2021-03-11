@@ -1,13 +1,13 @@
 import React, { FC, HTMLProps, ReactElement, useState } from "react";
 import { classNames, mergeClasses } from "../helpers/utils";
 
-interface InputProps extends HTMLProps<HTMLInputElement> {
+interface InputTextProps extends HTMLProps<HTMLInputElement> {
   wrapperClassName?: string;
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
 }
 
-const Input: FC<InputProps> = ({
+const InputText: FC<InputTextProps> = ({
   wrapperClassName,
   className,
   leftIcon,
@@ -48,4 +48,4 @@ const Input: FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default InputText;

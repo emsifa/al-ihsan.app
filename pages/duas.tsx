@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import DuaCard from "../components/DuaCard";
 import HighlightedText from "../components/HighlightedText";
-import Input from "../components/Input";
+import InputText from "../components/InputText";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import NavbarTitle from "../components/NavbarTitle";
 import { getDuas } from "../services/duas";
@@ -53,7 +53,7 @@ const DuasPage: NextPage<DuasPageProps> = ({ duas }) => {
         <title>Al-Ihsan Apps &mdash; Kumpulan Doa</title>
       </Head>
       <div className="mt-3">
-        <Input
+        <InputText
           value={keyword}
           onChange={(e) => setKeyword((e.target as HTMLInputElement).value)}
           className="w-full"
