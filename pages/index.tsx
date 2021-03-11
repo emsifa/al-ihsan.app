@@ -24,7 +24,7 @@ export default function Home() {
         <div className="col-span-2"><SquareMenu href="/prayer-times" icon="/icon-salat-clock.svg" label="Waktu Salat"/></div>
         <div className=""><SquareMenu href="/islamic-calendar" icon="/icon-islamic-calendar.svg" label="Kalender Islam"/></div>
         <div className=""><SquareMenu href="/duas" icon="/icon-pray.svg" label="Kumpulan Doa"/></div>
-        <div className=""><SquareMenu icon="/icon-calculator-zakat.svg" label="Kalkulator Zakat"/></div>
+        <div className=""><SquareMenu href="/zakat-calculator" icon="/icon-calculator-zakat.svg" label="Kalkulator Zakat"/></div>
       </div>
     </Layout>
   );

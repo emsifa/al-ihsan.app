@@ -150,3 +150,5 @@ export interface Dua {
   translation: string;
   source: string;
 }
+
+export type NumberSeparator = "comma" | "period" | "space";
