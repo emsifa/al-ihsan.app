@@ -13,7 +13,13 @@ const SquareMenu: FC<SquareMenuProps> = ({ href, label, icon }) => {
     <div className="flex flex-wrap h-full justify-center content-center">
       <div>
         <div className="py-2 px-3">
-          <img src={icon} className="inline-block clear-both h-12" alt={label} />
+          <img
+            src={icon}
+            height="48px"
+            width="48px"
+            className="inline-block clear-both h-12"
+            alt={label}
+          />
         </div>
         <span className="inline-block">{label}</span>
       </div>
