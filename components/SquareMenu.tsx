@@ -42,7 +42,11 @@ const SquareMenu: FC<SquareMenuProps> = ({ href, label, icon }) => {
         "hover:shadow-lg",
       ])}
     >
-      {href && <Link href={href}>{body}</Link>}
+      {href && (
+        <Link href={href}>
+          <a>{body}</a>
+        </Link>
+      )}
       {!href && body}
     </div>
   );

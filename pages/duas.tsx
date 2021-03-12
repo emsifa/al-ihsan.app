@@ -1,10 +1,10 @@
 import { faArrowLeft, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage, GetStaticProps } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import DuaCard from "../components/DuaCard";
+import Head from "../components/Head";
 import HighlightedText from "../components/HighlightedText";
 import InputText from "../components/InputText";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
@@ -49,9 +49,10 @@ const DuasPage: NextPage<DuasPageProps> = ({ duas }) => {
       //   </span>
       // }
     >
-      <Head>
-        <title>Al-Ihsan Apps &mdash; Kumpulan Doa</title>
-      </Head>
+      <Head
+        title="Kumpulan Doa"
+        description="Kumpulan doa sehari-hari dengan terjemahan Bahasa Indonesia"
+      />
       <div className="mt-3">
         <InputText
           value={keyword}

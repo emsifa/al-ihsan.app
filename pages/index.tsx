@@ -1,15 +1,12 @@
-import Head from "next/head";
+import Head from "../components/Head";
 import Layout from "../components/Layout";
 import LogoAlIhsan from "../components/LogoAlIhsan";
-import LogoWithTypo from "../components/LogoWithTypo";
 import SquareMenu from "../components/SquareMenu";
 
 export default function Home() {
   return (
     <Layout>
-      <Head>
-        <title>Al-Ihsan Apps</title>
-      </Head>
+      <Head/>
       <div className="mb-5 flex flex-wrap justify-center content-center">
         <div className="w-full sm:w-auto flex justify-center">
           <LogoAlIhsan size={64}/>

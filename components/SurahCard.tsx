@@ -23,7 +23,7 @@ const SurahCard: FC<SurahCardProps> = ({
 }) => {
   return (
     <Link href={href}>
-      <div
+      <a
         className={classNames([
           "rounded",
           "bg-white",
@@ -49,6 +49,7 @@ const SurahCard: FC<SurahCardProps> = ({
             isStarred && "text-secondary",
           ])}
           onClick={(e) => {
+            e.preventDefault();
             e.stopPropagation();
             onClickStar();
           }}
@@ -58,7 +59,7 @@ const SurahCard: FC<SurahCardProps> = ({
         <span className="text-primary">{name}</span>
         <br />
         <span className="font-semibold text-oxford-blue">{nameLatin}</span>
-      </div>
+      </a>
     </Link>
   );
 };

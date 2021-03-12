@@ -9,11 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, addDays } from "date-fns";
 import id from "date-fns/locale/id";
 import { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import Clock from "../components/Clock";
 import ExternalLink from "../components/ExternalLink";
+import Head from "../components/Head";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import Modal from "../components/Modal";
 import NavbarTitle from "../components/NavbarTitle";
@@ -61,9 +61,10 @@ const PrayTimesPage: NextPage<PrayTimesPageProps> = ({ regions }) => {
         </span>
       }
     >
-      <Head>
-        <title>Al-Ihsan Apps &mdash; Waktu Salat</title>
-      </Head>
+      <Head
+        title={`Waktu Salat`}
+        description={`Waktu salat untuk wilayah Indonesia`}
+      />
 
       <ModalInfo shown={showInfo} onClose={() => setShowInfo(false)} />
 

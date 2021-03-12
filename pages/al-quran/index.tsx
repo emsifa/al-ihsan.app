@@ -7,7 +7,6 @@ import {
 import dynamic from "next/dynamic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage, GetStaticProps } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import InputText from "../../components/InputText";
@@ -22,6 +21,7 @@ import ExternalLink from "../../components/ExternalLink";
 import Code from "../../components/Code";
 import NavbarTitle from "../../components/NavbarTitle";
 import HighlightedText from "../../components/HighlightedText";
+import Head from "../../components/Head";
 
 const BookmarkLinkCard = dynamic(
   () => import("../../components/BookmarkLinkCard")
@@ -82,9 +82,10 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
         </span>
       }
     >
-      <Head>
-        <title>Al-Ihsan Apps &mdash; Al-Qur'an</title>
-      </Head>
+      <Head
+        title="Al-Qur'an"
+        description="Bacaan Al-Qur'an 30 juz dengan audio serta terjemahan Bahasa Indonesia"
+      />
 
       <ModalInfo
         shown={showInfo}
@@ -117,9 +118,14 @@ const AlQuranPage: NextPage<AlQuranPageProps> = ({ listSurah, renderedAt }) => {
                 <FontAwesomeIcon icon={faStar} />
               </span>
             }
-            leftIcon={<FontAwesomeIcon icon={faSearch} className={classNames([
-              focusKeyword ? "text-primary" : "text-gray-300"
-            ])} />}
+            leftIcon={
+              <FontAwesomeIcon
+                icon={faSearch}
+                className={classNames([
+                  focusKeyword ? "text-primary" : "text-gray-300",
+                ])}
+              />
+            }
           />
         </div>
 

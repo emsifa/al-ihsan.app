@@ -1,10 +1,10 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { FC, useMemo, useState } from "react";
 import ExternalLink from "../components/ExternalLink";
+import Head from "../components/Head";
 import InputNumber from "../components/InputNumber";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import NavbarTitle from "../components/NavbarTitle";
@@ -51,9 +51,11 @@ const ZakatCalculatorPage: NextPage = () => {
       //   </span>
       // }
     >
-      <Head>
-        <title>Al-Ihsan Apps &mdash; Waktu Salat</title>
-      </Head>
+      <Head
+        title="Kalkulator Zakat"
+        description="Kalkulator untuk menghitung nishab serta zakat penghasilan"
+      />
+
       <CalculatorCard title="Hitung Nishab">
         <p className="text-gray-500 text-sm border-b mb-3 pb-3">
           Nishab digunakan sebagai acuan apakah seorang Muslim wajib

@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, isFriday, isSunday } from "date-fns";
 import { useQuery } from "react-query";
 import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import id from "date-fns/locale/id";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
@@ -21,6 +20,7 @@ import Code from "../components/Code";
 import ExternalLink from "../components/ExternalLink";
 import NavbarTitle from "../components/NavbarTitle";
 import { Transition } from "@headlessui/react";
+import Head from "../components/Head";
 
 type MonthYear = {
   month: number;
@@ -124,9 +124,10 @@ const IslamicCalendarPage: NextPage = () => {
         </span>
       }
     >
-      <Head>
-        <title>Al-Ihsan Apps &mdash; Kalender Islam</title>
-      </Head>
+      <Head
+        title="Kalender Islam"
+        description="Informasi kalender islam dengan nama bulan hijriyah dan hari-hari spesial islam"
+      />
 
       <ModalInfo shown={showInfo} onClose={() => setShowInfo(false)} />
 

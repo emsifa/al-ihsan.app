@@ -9,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { useImmerReducer } from "use-immer";
@@ -28,6 +27,7 @@ import Modal from "../../components/Modal";
 import ExternalLink from "../../components/ExternalLink";
 import Code from "../../components/Code";
 import NavbarTitle from "../../components/NavbarTitle";
+import Head from "../../components/Head";
 
 interface SurahPageProps {
   renderedAt: number;
@@ -198,13 +198,10 @@ const SurahPage: NextPage<SurahPageProps> = ({
         </span>
       }
     >
-      <Head>
-        <title>
-          Al-Ihsan Apps &mdash; Al-Qur'an &middot; Surah{" "}
-          {surah.name.transliteration.id}
-        </title>
-      </Head>
-
+      <Head
+        title={`Al-Qur'an Surah ${surah.name.transliteration.id}`}
+        description={`Bacaan Al-Qur'an surah ${surah.name.transliteration.id} dengan audio dan terjemahan Bahasa Indonesia`}
+      />
       <ModalInfo
         shown={showModalInfo}
         renderedAt={renderedAt}
@@ -296,40 +293,40 @@ const SurahPage: NextPage<SurahPageProps> = ({
             <div className="w-5/12 text-center">
               {metadata.prev && (
                 <Link href={`/al-quran/${metadata.prev.number}`}>
-                  <div
+                  <a
                     role="button"
-                    className="cursor-pointer bg-oxford-blue text-white px-2 py-2 text-sm rounded overflow-ellipsis"
+                    className="w-full inline-block cursor-pointer bg-oxford-blue text-white px-2 py-2 text-sm rounded overflow-ellipsis"
                   >
                     <span className="inline-block mr-2">
                       <FontAwesomeIcon icon={faChevronLeft} />
                     </span>
                     {metadata.prev.name.transliteration.id}
-                  </div>
+                  </a>
                 </Link>
               )}
             </div>
             <div className="w-2/12 text-center px-2">
               <Link href="/al-quran">
-                <div
+                <a
                   role="button"
-                  className="cursor-pointer rounded bg-secondary text-white text-center px-2 py-2 text-sm"
+                  className="w-full inline-block cursor-pointer rounded bg-secondary text-white text-center px-2 py-2 text-sm"
                 >
                   <FontAwesomeIcon icon={faBars} />
-                </div>
+                </a>
               </Link>
             </div>
             <div className="w-5/12 text-center">
               {metadata.next && (
                 <Link href={`/al-quran/${metadata.next.number}`}>
-                  <div
+                  <a
                     role="button"
-                    className="cursor-pointer bg-oxford-blue text-white px-2 py-2 text-sm rounded overflow-ellipsis"
+                    className="w-full inline-block cursor-pointer bg-oxford-blue text-white px-2 py-2 text-sm rounded overflow-ellipsis"
                   >
                     {metadata.next.name.transliteration.id}
                     <span className="inline-block ml-2">
                       <FontAwesomeIcon icon={faChevronRight} />
                     </span>
-                  </div>
+                  </a>
                 </Link>
               )}
             </div>
