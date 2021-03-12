@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, { FC } from "react";
 import Container from "./Container";
+import Footer from "./Footer";
 
 const Layout: FC = ({ children }) => {
   return (
@@ -13,9 +14,7 @@ const Layout: FC = ({ children }) => {
         <div className="flex relative min-h-screen w-full sm:flex-wrap justify-center sm:content-center">
           <div className="w-full">
             <main>{children}</main>
-            <footer className="select-none mt-5 shadow-lg bg-primary rounded px-3 py-2 text-xs text-white text-center">
-              &copy; 2021 &middot; Majelis Ta'lim Al-Ihsan, Duren Sawit, Jakarta Timur
-            </footer>
+            <Footer/>
           </div>
         </div>
       </Container>

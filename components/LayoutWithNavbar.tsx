@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, { FC, ReactElement } from "react";
 import Container from "./Container";
+import Footer from "./Footer";
 import Navbar from "./Navbar";
 
 interface LayoutWithNavbarProps {
@@ -28,10 +29,7 @@ const LayoutWithNavbar: FC<LayoutWithNavbarProps> = ({
       />
       <Container>
         <main>{children}</main>
-        <footer className="select-none mt-5 shadow-lg bg-primary rounded px-3 py-2 text-xs text-white text-center">
-          &copy; 2021 &middot; Majelis Ta'lim Al-Ihsan, Duren Sawit, Jakarta
-          Timur
-        </footer>
+        <Footer/>
       </Container>
     </div>
   );
