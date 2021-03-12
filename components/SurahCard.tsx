@@ -22,7 +22,7 @@ const SurahCard: FC<SurahCardProps> = ({
   onClickStar,
 }) => {
   return (
-    <Link href={href}>
+    <Link href={href} prefetch={false}>
       <a
         className={classNames([
           "rounded",
