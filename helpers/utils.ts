@@ -12,3 +12,7 @@ export function mergeClasses(classA: ClassProp, classB: ClassProp): string {
 
   return [...toArray(classA || []), ...toArray(classB || [])].join(" ");
 }
+
+export async function timeout(duration: number): Promise<null> {
+  return new Promise((resolve) => setTimeout(resolve, duration));
+}

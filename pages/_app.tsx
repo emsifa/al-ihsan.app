@@ -1,18 +1,21 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { config, dom } from "@fortawesome/fontawesome-svg-core";
-import { useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
+import SyncLoader from "react-spinners/SyncLoader";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AppData, BookmarkedVerse } from "../types";
 import { getData, persistData } from "../services/data";
 import AppContext from "../context/AppContext";
 import "../styles/globals.css";
+import { useRouteState } from "../hooks/useRouteState";
 
 config.autoAddCss = false;
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [data, setData] = useState<AppData>(getData());
+  const routeState = useRouteState();
 
   function toggleBookmarkVerse(verse: BookmarkedVerse) {
     setData((data) => {
@@ -69,9 +72,21 @@ function MyApp({ Component, pageProps }: AppProps) {
         <div>
           <Component {...pageProps} />
         </div>
+        {routeState === "start" && (
+          <Preloader>{routeState}</Preloader>
+        )}
       </AppContext.Provider>
     </QueryClientProvider>
   );
 }
 
 export default MyApp;
+
+const Preloader: FC = () => (
+  <div>
+    <div className="fixed top-0 left-0 w-full h-full bg-white opacity-20"/>
+    <div className="fixed top-0 left-0 w-full h-full flex flex-wrap justify-center content-center z-50">
+      <div><SyncLoader color="#2ca58d"/></div>
+    </div>
+  </div>
+);

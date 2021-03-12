@@ -151,4 +151,6 @@ export interface Dua {
   source: string;
 }
 
+export type RouteState = "start" | "complete" | "error";
+
 export type NumberSeparator = "comma" | "period" | "space";
