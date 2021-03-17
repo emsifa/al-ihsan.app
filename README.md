@@ -40,3 +40,13 @@ Boleh.
 #### Saya ingin memodifikasi aplikasi ini dan menjualnya ke orang lain, boleh?
 
 Boleh, pastikan logo, judul, dan footernya sudah kamu ubah.
+
+## Special Thanks
+
+Saya ucapkan terima kasih sebesar-besarnya kepada pihak-pihak yang karyanya saya gunakan untuk membuat website ini, diantaranya:
+
+* [Sutanlab](https://github.com/sutanlab) untuk [API Al-Qur'an](https://github.com/sutanlab/quran-api)-nya yang digunakan untuk menu Al-Qur'an.
+* [Batoul Apps](https://github.com/batoulapps) untuk [adhan.js](https://github.com/batoulapps/adhan-js)-nya yang digunakan untuk menu Waktu Salat.
+* Dan kreator-kreator lain yang [karyanya saya gunakan](https://github.com/emsifa/al-ihsan.app/blob/main/package.json) untuk membantu pembuatan aplikasi ini.
+
+Juga untuk teman-teman yang mendukung pengembangan aplikasi ini. 👍
