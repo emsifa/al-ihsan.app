@@ -8,13 +8,13 @@ Source-code ini bersifat bebas terbuka dibawah [license MIT](https://github.com/
 
 ## Pertanyaan
 
-#### Saya mau lapor bug/error/kesalahan pada website [al-ihsan.app](https://al-ihsan.app), kemana saya harus melapor?
+### Saya mau lapor bug/error/kesalahan pada website [al-ihsan.app](https://al-ihsan.app), kemana saya harus melapor?
 
 Kamu bisa melaporkan bug/error/kesalahan melalui halaman [issues](https://github.com/emsifa/al-ihsan.app) GitHub atau facebook [saya (Muhammad Syifa)](https://fb.me/emsifa).
 
 Harap sertakan link dan screenshoot pada laporan kamu yaa 😃
 
-#### Saya mau request fitur atau konten baru, boleh?
+### Saya mau request fitur atau konten baru, boleh?
 
 Selama masih berhubungan dengan hal-hal islami, boleh banget. Kamu bisa kirim ke halaman [issues](https://github.com/emsifa/al-ihsan.app) GitHub atau facebook [saya (Muhammad Syifa)](https://fb.me/emsifa).
 
@@ -25,7 +25,7 @@ Perlu diketahui, karena aplikasi ini saya peruntukkan ke alharhum Ayah saya, say
 3. Aplikasi ini dibuat untuk self-service, segala penambahan yang sifatnya membutuhkan operator aktif, kemungkinan besar akan saya tolak. Tapi kalau dirasa besar manfaatnya untuk ummat, silahkan ajukan aja, mungkin akan saya buatkan aplikasi terpisah untuk itu.
 4. Aplikasi ini menggunakan nama Musolah dan Majelis Ta'lim tempat almarhum Ayah saya mengajar, segala penambahan baru ke aplikasi harus saya mintakan izin ke pihak-pihak terkait.
 
-#### Saya programmer, mau ikut kontribusi ke aplikasi ini, bagaimana prosedurnya?
+### Saya programmer, mau ikut kontribusi ke aplikasi ini, bagaimana prosedurnya?
 
 Disini saya asumsikan kamu sudah mengerti workflow pengembangan dengan Git.
 
@@ -33,11 +33,11 @@ Untuk berkontribusi di aplikasi ini, cobalah lihat halaman [help wanted issues](
 
 Jika kamu ingin mengerjakan hal lain diluar "help wanted" issues, kamu perlu buat issue terlebih dahulu untuk saya pertimbangkan perlu atau tidaknya. Jika saya sudah accept, kamu dapat mengerjakan issue tersebut. Kalau sudah selesai, kamu bisa buat pull request dengan mention ID dari issue tersebut.
 
-#### Saya mau install/deploy aplikasi ini menggunakan nama berbeda, boleh?
+### Saya mau install/deploy aplikasi ini menggunakan nama berbeda, boleh?
 
 Boleh.
 
-#### Saya ingin memodifikasi aplikasi ini dan menjualnya ke orang lain, boleh?
+### Saya ingin memodifikasi aplikasi ini dan menjualnya ke orang lain, boleh?
 
 Boleh, pastikan logo, judul, dan footernya sudah kamu ubah.
 
