@@ -1,8 +1,5 @@
 import { FC, useEffect, useMemo, useState } from "react";
-import {
-  faArrowLeft,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isFriday, isSunday } from "date-fns";
 import { useQuery } from "react-query";
@@ -10,7 +7,7 @@ import { NextPage } from "next";
 import Link from "next/link";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import { getCalendarDates } from "../helpers/calendar";
-import { CalendarEvent, DateConversion, HijriMonth } from "../types";
+import { CalendarEvent, DateConversion, HijriMonth, MonthYear } from "../types";
 import { classNames, dateFormat } from "../helpers/utils";
 import { getCalendarEvents } from "../services/calendar-events";
 import Modal from "../components/Modal";
@@ -21,14 +18,11 @@ import { Transition } from "@headlessui/react";
 import Head from "../components/Head";
 import MonthNavigator from "../components/MonthNavigator";
 
-type MonthYear = {
-  month: number;
-  year: number;
-};
-
 const IslamicCalendarPage: NextPage = () => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
-  const [today] = useState<Date>(new Date(dateFormat(new Date(), "yyyy-MM-dd")));
+  const [today] = useState<Date>(
+    new Date(dateFormat(new Date(), "yyyy-MM-dd"))
+  );
   const [{ month, year }, setMonthYear] = useState<MonthYear>({
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
@@ -87,24 +81,6 @@ const IslamicCalendarPage: NextPage = () => {
     setDates(getCalendarDates(date));
   }, [date]);
 
-  function next() {
-    setMonthYear(({ month, year }) => {
-      return {
-        month: month === 11 ? 1 : month + 1,
-        year: month === 11 ? year + 1 : year,
-      };
-    });
-  }
-
-  function prev() {
-    setMonthYear(({ month, year }) => {
-      return {
-        month: month === 0 ? 11 : month - 1,
-        year: month === 0 ? year - 1 : year,
-      };
-    });
-  }
-
   return (
     <LayoutWithNavbar
       navbarTitle={
@@ -134,8 +110,8 @@ const IslamicCalendarPage: NextPage = () => {
         <div className="mt-3">
           <MonthNavigator
             date={date}
-            onClickPrev={prev}
-            onClickNext={next}
+            onClickPrev={({ month, year }) => setMonthYear({ month, year })}
+            onClickNext={({ month, year }) => setMonthYear({ month, year })}
           />
         </div>
 

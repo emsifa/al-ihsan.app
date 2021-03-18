@@ -154,3 +154,8 @@ export interface Dua {
 export type RouteState = "start" | "complete" | "error";
 
 export type NumberSeparator = "comma" | "period" | "space";
+
+export type MonthYear = {
+  month: number;
+  year: number;
+};
