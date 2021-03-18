@@ -11,6 +11,7 @@ import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import Clock from "../components/Clock";
+import DateNavigator from "../components/DateNavigator";
 import ExternalLink from "../components/ExternalLink";
 import Head from "../components/Head";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
@@ -109,32 +110,6 @@ const PrayTimesPage: NextPage<PrayTimesPageProps> = ({ regions }) => {
 };
 
 export default PrayTimesPage;
-
-const DateNavigator: FC<{
-  date: Date;
-  onClickPrev: () => void;
-  onClickNext: () => void;
-}> = ({ date, onClickPrev, onClickNext }) => (
-  <div className="flex rounded overflow-hidden select-none">
-    <div
-      role="button"
-      className="w-2/12 cursor-pointer flex flex-wrap content-center justify-center px-2 py-1 text-white bg-primary"
-      onClick={onClickPrev}
-    >
-      <FontAwesomeIcon icon={faArrowLeft} />
-    </div>
-    <div className="w-8/12 text-center px-2 py-2 text-sm text-white bg-secondary">
-      {dateFormat(date, "EEEE, dd MMMM yyyy")}
-    </div>
-    <div
-      role="button"
-      className="w-2/12 cursor-pointer flex flex-wrap content-center justify-center px-2 py-1 text-white bg-primary"
-      onClick={onClickNext}
-    >
-      <FontAwesomeIcon icon={faArrowRight} />
-    </div>
-  </div>
-);
 
 const ModalInfo: FC<{ shown: boolean; onClose: () => void }> = ({
   shown,
