@@ -19,7 +19,6 @@ import Modal from "../components/Modal";
 import NavbarTitle from "../components/NavbarTitle";
 import Select from "../components/Select";
 import { getPrayTimes } from "../helpers/pray-time";
-import { dateFormat } from "../helpers/utils";
 import { getRegions } from "../services/prayer-times";
 import { PrayTimeRegion, PrayTimes } from "../types";
 
