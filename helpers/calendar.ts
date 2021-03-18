@@ -1,5 +1,6 @@
-import { addDays, format, isLastDayOfMonth, startOfMonth } from "date-fns";
+import { addDays, isLastDayOfMonth, startOfMonth } from "date-fns";
 import { DateConversion, HijriDate } from "../types";
+import { dateFormat } from "./utils";
 
 function toHijri(date: Date): HijriDate {
   const intlFormat = "id-TN-u-ca-islamic-umalqura";
@@ -57,7 +58,7 @@ export function getCalendarDates(date: Date): DateConversion[] {
     ...dates,
     ...getDatesFillerAfter(dates[dates.length - 1]),
   ].map((date) => {
-    const dateStr = format(date, "yyyy-MM-dd");
+    const dateStr = dateFormat(date, "yyyy-MM-dd");
     return {
       date: new Date(dateStr),
       dateStr,

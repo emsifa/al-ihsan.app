@@ -1,19 +1,17 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import {
   faArrowLeft,
-  faArrowRight,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { format, isFriday, isSunday } from "date-fns";
+import { isFriday, isSunday } from "date-fns";
 import { useQuery } from "react-query";
 import { NextPage } from "next";
 import Link from "next/link";
-import id from "date-fns/locale/id";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import { getCalendarDates } from "../helpers/calendar";
 import { CalendarEvent, DateConversion, HijriMonth } from "../types";
-import { classNames } from "../helpers/utils";
+import { classNames, dateFormat } from "../helpers/utils";
 import { getCalendarEvents } from "../services/calendar-events";
 import Modal from "../components/Modal";
 import Code from "../components/Code";
@@ -30,7 +28,7 @@ type MonthYear = {
 
 const IslamicCalendarPage: NextPage = () => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
-  const [today] = useState<Date>(new Date(format(new Date(), "yyyy-MM-dd")));
+  const [today] = useState<Date>(new Date(dateFormat(new Date(), "yyyy-MM-dd")));
   const [{ month, year }, setMonthYear] = useState<MonthYear>({
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
@@ -180,7 +178,7 @@ const Calendar: FC<{ dates: DateConversion[]; today: Date }> = ({
     {dates.map((date) => {
       const isToday =
         !date.isOtherMonth &&
-        format(today, "ddMMyyyy") === format(date.date, "ddMMyyyy");
+        dateFormat(today, "ddMMyyyy") === dateFormat(date.date, "ddMMyyyy");
 
       const isMonth = (date: DateConversion, monthIndex: number): boolean =>
         date.hijri.month.index === monthIndex;
@@ -214,7 +212,7 @@ const Calendar: FC<{ dates: DateConversion[]; today: Date }> = ({
               isFriday(date.date) && "text-primary font-semibold",
             ])}
           >
-            {format(date.date, "d", { locale: id })}
+            {dateFormat(date.date, "d")}
           </span>
           <span
             className={classNames([
@@ -293,9 +291,7 @@ const CardEvent: FC<{ event: CalendarEvent; date: DateConversion }> = ({
             </span>
             <span className="mx-2 opacity-20">/</span>
             <small className="text-secondary font-semibold">
-              {format(date.date, "EEEE, dd MMMM", {
-                locale: id,
-              })}
+              {dateFormat(date.date, "EEEE, dd MMMM")}
             </small>
           </p>
           <h4 className="text-lg font-semibold text-oxford-blue">

@@ -6,8 +6,7 @@ import {
   faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { format, addDays } from "date-fns";
-import id from "date-fns/locale/id";
+import { addDays } from "date-fns";
 import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
@@ -19,6 +18,7 @@ import Modal from "../components/Modal";
 import NavbarTitle from "../components/NavbarTitle";
 import Select from "../components/Select";
 import { getPrayTimes } from "../helpers/pray-time";
+import { dateFormat } from "../helpers/utils";
 import { getRegions } from "../services/prayer-times";
 import { PrayTimeRegion, PrayTimes } from "../types";
 
@@ -124,7 +124,7 @@ const DateNavigator: FC<{
       <FontAwesomeIcon icon={faArrowLeft} />
     </div>
     <div className="w-8/12 text-center px-2 py-2 text-sm text-white bg-secondary">
-      {format(date, "EEEE, dd MMMM yyyy", { locale: id })}
+      {dateFormat(date, "EEEE, dd MMMM yyyy")}
     </div>
     <div
       role="button"
