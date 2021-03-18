@@ -21,6 +21,7 @@ import ExternalLink from "../components/ExternalLink";
 import NavbarTitle from "../components/NavbarTitle";
 import { Transition } from "@headlessui/react";
 import Head from "../components/Head";
+import MonthNavigator from "../components/MonthNavigator";
 
 type MonthYear = {
   month: number;
@@ -133,7 +134,7 @@ const IslamicCalendarPage: NextPage = () => {
 
       <div className="mb-5 w-full mt-3">
         <div className="mt-3">
-          <CalendarNavigator
+          <MonthNavigator
             date={date}
             onClickPrev={prev}
             onClickNext={next}
@@ -162,32 +163,6 @@ const IslamicCalendarPage: NextPage = () => {
 };
 
 export default IslamicCalendarPage;
-
-const CalendarNavigator: FC<{
-  date: Date;
-  onClickPrev: () => void;
-  onClickNext: () => void;
-}> = ({ date, onClickPrev, onClickNext }) => (
-  <div className="flex rounded overflow-hidden select-none">
-    <div
-      role="button"
-      className="w-2/12 cursor-pointer flex flex-wrap content-center justify-center px-2 py-1 text-white bg-primary"
-      onClick={onClickPrev}
-    >
-      <FontAwesomeIcon icon={faArrowLeft} />
-    </div>
-    <div className="w-8/12 text-center px-2 py-2 text-sm text-white bg-secondary">
-      {format(date, "MMMM yyyy", { locale: id }).toUpperCase()}
-    </div>
-    <div
-      role="button"
-      className="w-2/12 cursor-pointer flex flex-wrap content-center justify-center px-2 py-1 text-white bg-primary"
-      onClick={onClickNext}
-    >
-      <FontAwesomeIcon icon={faArrowRight} />
-    </div>
-  </div>
-);
 
 const Calendar: FC<{ dates: DateConversion[]; today: Date }> = ({
   dates,

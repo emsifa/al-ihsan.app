@@ -1,3 +1,6 @@
+import { format as dateFnsFormat } from "date-fns";
+import { id } from "date-fns/locale";
+
 export function classNames(
   classes: (string | boolean | null | undefined)[]
 ): string {
@@ -15,4 +18,8 @@ export function mergeClasses(classA: ClassProp, classB: ClassProp): string {
 
 export async function timeout(duration: number): Promise<null> {
   return new Promise((resolve) => setTimeout(resolve, duration));
+}
+
+export function dateFormat(date: Date, format: string): string {
+  return dateFnsFormat(date, format, { locale: id });
 }
