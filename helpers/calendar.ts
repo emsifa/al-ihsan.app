@@ -1,5 +1,5 @@
 import { addDays, isLastDayOfMonth, startOfMonth } from "date-fns";
-import { DateConversion, HijriDate } from "../types";
+import { DateConversion, HijriDate, MonthYear } from "../types";
 import { dateFormat } from "./utils";
 
 function toHijri(date: Date): HijriDate {
@@ -41,9 +41,8 @@ function getDatesFillerAfter(date: Date): Date[] {
     .map((_, i) => addDays(date, i + 1));
 }
 
-export function getCalendarDates(date: Date): DateConversion[] {
-  const start = startOfMonth(date);
-  const dates = [start];
+export function getDatesInMonth({ month, year }: MonthYear): Date[] {
+  const dates = [new Date(year, month, 1)];
 
   while (true) {
     const last = dates[dates.length - 1];
@@ -52,6 +51,19 @@ export function getCalendarDates(date: Date): DateConversion[] {
     }
     dates.push(addDays(last, 1));
   }
+
+  return dates;
+}
+
+export function isSameDate(a: Date, b: Date): boolean {
+  return a.toDateString() === b.toDateString();
+}
+
+export function getCalendarDates(date: Date): DateConversion[] {
+  const dates = getDatesInMonth({
+    month: date.getMonth(),
+    year: date.getFullYear(),
+  });
 
   return [
     ...getDatesFillerBefore(dates[0]),
@@ -63,7 +75,7 @@ export function getCalendarDates(date: Date): DateConversion[] {
       date: new Date(dateStr),
       dateStr,
       hijri: toHijri(new Date(dateStr)),
-      isOtherMonth: start.getMonth() !== date.getMonth(),
+      isOtherMonth: dates[0].getMonth() !== date.getMonth(),
     };
   });
 }

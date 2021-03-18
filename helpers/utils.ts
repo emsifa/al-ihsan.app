@@ -23,3 +23,7 @@ export async function timeout(duration: number): Promise<null> {
 export function dateFormat(date: Date, format: string): string {
   return dateFnsFormat(date, format, { locale: id });
 }
+
+export function isSameDate(a: Date, b: Date): boolean {
+  return a.toDateString() === b.toDateString();
+}

@@ -16,20 +16,33 @@ import ExternalLink from "../components/ExternalLink";
 import Head from "../components/Head";
 import LayoutWithNavbar from "../components/LayoutWithNavbar";
 import Modal from "../components/Modal";
+import MonthNavigator from "../components/MonthNavigator";
 import NavbarTitle from "../components/NavbarTitle";
 import Select from "../components/Select";
+import { getDatesInMonth } from "../helpers/calendar";
 import { getPrayTimes } from "../helpers/pray-time";
+import { classNames, dateFormat, isSameDate } from "../helpers/utils";
 import { getRegions } from "../services/prayer-times";
-import { PrayTimeRegion, PrayTimes } from "../types";
+import { MonthYear, PrayTimeRegion, PrayTimes } from "../types";
 
 interface PrayTimesPageProps {
   regions: PrayTimeRegion[];
 }
 
+type MonthPrayTimes = (PrayTimes & { date: Date })[];
+
 const PrayTimesPage: NextPage<PrayTimesPageProps> = ({ regions }) => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
+  const [tab, setTab] = useState<"month" | "day">("day");
   const [date, setDate] = useState<Date>(new Date());
-  const [prayTimes, setPrayTimes] = useState<PrayTimes | null>(null);
+  const [{ month, year }, setMonthYear] = useState<MonthYear>({
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
+  });
+  const [dayPrayTimes, setDayPrayTimes] = useState<PrayTimes | null>(null);
+  const [monthPrayTimes, setMonthPrayTimes] = useState<MonthPrayTimes | null>(
+    null
+  );
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
 
   useEffect(() => {
@@ -40,8 +53,23 @@ const PrayTimesPage: NextPage<PrayTimesPageProps> = ({ regions }) => {
 
   useEffect(() => {
     const region = (regions || []).find((r) => r.id === selectedRegion);
-    setPrayTimes(region ? getPrayTimes(region.lat, region.lng, date, region.gmt) : null);
+    setDayPrayTimes(
+      region ? getPrayTimes(region.lat, region.lng, date, region.gmt) : null
+    );
   }, [date, selectedRegion, regions]);
+
+  useEffect(() => {
+    const region = (regions || []).find((r) => r.id === selectedRegion);
+
+    setMonthPrayTimes(
+      region
+        ? getDatesInMonth({ month, year }).map((date: Date) => ({
+            date,
+            ...getPrayTimes(region.lat, region.lng, date, region.gmt),
+          }))
+        : null
+    );
+  }, [month, year, selectedRegion, regions]);
 
   return (
     <LayoutWithNavbar
@@ -87,28 +115,108 @@ const PrayTimesPage: NextPage<PrayTimesPageProps> = ({ regions }) => {
         </Select>
 
         <div className="mt-3">
-          <DateNavigator
-            date={date}
-            onClickPrev={() => setDate(addDays(date, -1))}
-            onClickNext={() => setDate(addDays(date, 1))}
-          />
-        </div>
-
-        {prayTimes && (
-          <div className="rounded bg-white mt-3 select-none overflow-hidden">
-            <PrayTime label="Subuh" time={`${prayTimes.fajr}`} />
-            <PrayTime label="Zuhur" time={`${prayTimes.dhuhr}`} />
-            <PrayTime label="Ashar" time={`${prayTimes.asr}`} />
-            <PrayTime label="Maghrib" time={`${prayTimes.maghrib}`} />
-            <PrayTime label="Isya" time={`${prayTimes.isha}`} />
+          <div className="grid grid-cols-2 gap-2">
+            <TabButton active={tab === "day"} onClick={() => setTab("day")}>
+              HARI
+            </TabButton>
+            <TabButton active={tab === "month"} onClick={() => setTab("month")}>
+              BULAN
+            </TabButton>
           </div>
-        )}
+          <div className="bg-white rounded-bl rounded-br p-3">
+            {tab === "month" && (
+              <div>
+                <MonthNavigator
+                  date={new Date(year, month, 1)}
+                  onClickPrev={(monthYear) => setMonthYear(monthYear)}
+                  onClickNext={(monthYear) => setMonthYear(monthYear)}
+                />
+                {monthPrayTimes && (
+                  <MonthPrayTimes prayTimes={monthPrayTimes} />
+                )}
+              </div>
+            )}
+            {tab === "day" && (
+              <div>
+                <DateNavigator
+                  date={date}
+                  onClickPrev={() => setDate(addDays(date, -1))}
+                  onClickNext={() => setDate(addDays(date, 1))}
+                />
+                {dayPrayTimes && <DayPrayTimes prayTimes={dayPrayTimes} />}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </LayoutWithNavbar>
   );
 };
 
 export default PrayTimesPage;
+
+const TabButton: FC<{ active: boolean; onClick: () => void }> = ({
+  active,
+  children,
+  onClick,
+}) => (
+  <div
+    role="button"
+    className={classNames([
+      "rounded-tl rounded-tr p-3 cursor-pointer text-center bg-white",
+      !active && "opacity-30 hover:opacity-50",
+    ])}
+    onClick={onClick}
+  >
+    {children}
+  </div>
+);
+
+const MonthPrayTimes: FC<{ prayTimes: MonthPrayTimes }> = ({ prayTimes }) => (
+  <table className="w-full border text-center mt-3 text-sm">
+    <thead>
+      <tr>
+        <th className="border">Tgl.</th>
+        <th className="border">Sub</th>
+        <th className="border">Zuh</th>
+        <th className="border">Ash</th>
+        <th className="border">Mag</th>
+        <th className="border">Isya</th>
+      </tr>
+    </thead>
+    <tbody>
+      {prayTimes.map((prayTime, i) => (
+        <tr
+          className={classNames([
+            isSameDate(new Date(), prayTime.date)
+              ? "hover:bg-primary"
+              : "hover:bg-gray-200",
+            isSameDate(new Date(), prayTime.date)
+              ? "bg-secondary text-white"
+              : i % 2 === 0 && "bg-gray-100",
+          ])}
+        >
+          <td className="border">{dateFormat(prayTime.date, "d")}</td>
+          <td className="border">{prayTime.fajr}</td>
+          <td className="border">{prayTime.dhuhr}</td>
+          <td className="border">{prayTime.asr}</td>
+          <td className="border">{prayTime.maghrib}</td>
+          <td className="border">{prayTime.isha}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
+const DayPrayTimes: FC<{ prayTimes: PrayTimes }> = ({ prayTimes }) => (
+  <div className="rounded border bg-white mt-3 select-none overflow-hidden">
+    <PrayTime label="Subuh" time={`${prayTimes.fajr}`} />
+    <PrayTime label="Zuhur" time={`${prayTimes.dhuhr}`} />
+    <PrayTime label="Ashar" time={`${prayTimes.asr}`} />
+    <PrayTime label="Maghrib" time={`${prayTimes.maghrib}`} />
+    <PrayTime label="Isya" time={`${prayTimes.isha}`} />
+  </div>
+);
 
 const ModalInfo: FC<{ shown: boolean; onClose: () => void }> = ({
   shown,
