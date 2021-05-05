@@ -40,7 +40,7 @@ const ZakatCalculatorPage: NextPage = () => {
       .catch(err => 
         console.error('FAIL_GET_GOLD_PRICE', err)
       )
-  })
+  }, [])
 
   return (
     <LayoutWithNavbar
