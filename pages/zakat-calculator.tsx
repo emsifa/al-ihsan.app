@@ -2,7 +2,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from "next";
 import Link from "next/link";
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import ExternalLink from "../components/ExternalLink";
 import Head from "../components/Head";
 import InputNumber from "../components/InputNumber";
@@ -29,6 +29,18 @@ const ZakatCalculatorPage: NextPage = () => {
   const nishab = useMemo(() => {
     return goldPrice * 85;
   }, [goldPrice]);
+
+  useEffect(() => {
+    fetch('https://gold-price.vercel.app/api/')
+      .then(resp => resp.json())
+      .then(json => {
+        const price = json.idr.gr.split('(')[0].replace(/\D/g, '')
+        setGoldPrice(price)
+      })
+      .catch(err => 
+        console.error('FAIL_GET_GOLD_PRICE', err)
+      )
+  }, [])
 
   return (
     <LayoutWithNavbar
@@ -88,13 +100,12 @@ const ZakatCalculatorPage: NextPage = () => {
             value={goldPrice}
             onUpdate={(value) => setGoldPrice(value)}
           />
-          <p className="text-xs text-gray-500 mt-2">
-            Tidak tahu harga emas?{" "}
-            <ExternalLink href="https://www.google.com/search?q=gold price per gram in idr">
-              klik disini
-            </ExternalLink>{" "}
-            untuk mencari tahu.
-          </p>
+          {/* <p className="text-xs text-gray-500 mt-2">
+            Sumber harga emas:{" "}
+            <ExternalLink href="https://harga-emas.org">
+              harga-emas.org
+            </ExternalLink>.
+          </p> */}
         </FormGroup>
         {nishab > 0 && (
           <div className="mt-3 py-3 border-t select-none">
